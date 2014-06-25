@@ -1,0 +1,5 @@
+alias ee="gvim ~/bash_ubuntu"
+alias ee="gvim ~/.bash_ubuntu"
+alias ss="source ~/.bash_ubuntu"
+
+alias ..="cd .."
