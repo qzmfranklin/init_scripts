@@ -74,7 +74,15 @@ inoremap jk <esc>
 nnoremap <leader>ee :tabedit ~/.vimrc<cr>
 
 " Fast sourcing .vimrc
-nnoremap <leader>so :source ~/.vimrc<cr>
+nnoremap <leader>ss :source ~/.vimrc<cr>
+
+" Fast nagivate between tabs
+nnoremap <M-[> gT
+nnoremap <M-]> gt
+
+" Fast copy from clip board
+nnoremap <C-S-P> "+gP
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,22 +175,25 @@ set noswapfile
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
-set expandtab
+"set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+"set shiftwidth=8
+"set tabstop=8
 
 " Linebreak on 500 characters
 set lbr
-set tw=500
+set tw=80
 
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+
+" Python .py file, use 4-space indentation
+au Filetype python setl et ts=4 sw=4
 
 
 """"""""""""""""""""""""""""""
@@ -287,7 +298,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-nnoremap <leader>ss :setlocal spell!<cr>
+nnoremap <leader>sc :setlocal spell!<cr>
 
 " Shortcuts using <leader>
 nnoremap <leader>sn ]s
