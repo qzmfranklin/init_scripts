@@ -484,8 +484,17 @@ endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"NERDTree options
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"autocmd vimenter * NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " close if the only open window
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Easymotion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let EasyMotion_leader_key=";"
 nnoremap <Leader> <Plug>(easymotion-prefix)
 nnoremap <Leader>l <Plug>(easymotion-lineforward)
 nnoremap <Leader>j <Plug>(easymotion-j)
