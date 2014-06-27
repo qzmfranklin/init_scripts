@@ -494,10 +494,19 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Easymotion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+<<<<<<< HEAD
 nmap ;l <Plug>(easymotion-lineforward)
 nmap ;j <Plug>(easymotion-j)
 nmap ;k <Plug>(easymotion-k)
 nmap ;h <Plug>(easymotion-linebackward)
+=======
+let EasyMotion_leader_key=";"
+nnoremap <Leader> <Plug>(easymotion-prefix)
+nnoremap <Leader>l <Plug>(easymotion-lineforward)
+nnoremap <Leader>j <Plug>(easymotion-j)
+nnoremap <Leader>k <Plug>(easymotion-k)
+nnoremap <Leader>h <Plug>(easymotion-linebackward)
+>>>>>>> c01f38c01e302097cdd2f5ee8907a0638a35b1c2
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_use_smartsign_us = 1 " US layout
