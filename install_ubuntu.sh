@@ -15,3 +15,10 @@ git clone https://github.com/Shougo/neosnippet.vim.git
 git clone https://github.com/Shougo/neosnippet-snippets.git 
 git clone https://github.com/Lokaltog/vim-easymotion.git 
 cd -
+
+git config --global user.email "qzmfranklin@gmail.com"
+git config --global user.name "Zhongming Qu"
+
+cp .vimrc ~/
+cp .bash_ubuntu ~/
+cp c.snip ~/.vim/bundle/neosnippet-snippets/neosnippets/
