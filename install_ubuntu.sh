@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get install build-essential git curl ruby perl vim-gnome tree
 
 # Install gvim, set up vimrc and .vim/
@@ -22,3 +24,5 @@ git config --global user.name "Zhongming Qu"
 cp .vimrc ~/
 cp .bash_ubuntu ~/
 cp c.snip ~/.vim/bundle/neosnippet-snippets/neosnippets/
+
+mkdir ~/bin
