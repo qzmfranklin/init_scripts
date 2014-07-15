@@ -2,7 +2,9 @@
 
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install build-essential git curl ruby perl vim-gnome tree
+sudo apt-get install build-essential git curl ruby perl vim-gnome tree \
+	python-numpy python-matplotlib python-scipy ipython \
+	python3-numpy python3-matplotlib python3-scipy ipython3
 
 # Install gvim, set up vimrc and .vim/
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
