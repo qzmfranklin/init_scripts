@@ -41,7 +41,7 @@ nnoremap <M-[> gT
 nnoremap <M-]> gt
 
 " Fast copy from clip board
-nnoremap <C-S-P> "+gP
+nnoremap <C-V> "+gP
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -223,14 +223,14 @@ autocmd BufReadPost *
 set viminfo^=%
 
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
+"""""""""""""""""""""""""""""""
+"" => Status line
+"""""""""""""""""""""""""""""""
+"" Always show the status line
+"set laststatus=2
 
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+"" Format the status line
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

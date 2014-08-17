@@ -4,7 +4,8 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install build-essential git curl ruby perl vim-gnome tree \
 	python-numpy python-matplotlib python-scipy ipython \
-	python3-numpy python3-matplotlib python3-scipy ipython3
+	python3-numpy python3-matplotlib python3-scipy ipython3 \
+	libfftw3-dev
 
 # Install gvim, set up vimrc and .vim/
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -18,6 +19,7 @@ git clone https://github.com/Shougo/neocomplete.vim.git
 git clone https://github.com/Shougo/neosnippet.vim.git 
 git clone https://github.com/Shougo/neosnippet-snippets.git 
 git clone https://github.com/Lokaltog/vim-easymotion.git 
+git clone https://github.com/kien/ctrlp.vim.git 
 cd -
 
 git config --global user.email "qzmfranklin@gmail.com"
