@@ -5,7 +5,7 @@ sudo apt-get upgrade
 sudo apt-get install build-essential git curl ruby perl vim-gnome tree \
 	python-numpy python-matplotlib python-scipy ipython \
 	python3-numpy python3-matplotlib python3-scipy ipython3 \
-	libfftw3-dev
+	libfftw3-dev ctags
 
 # Install gvim, set up vimrc and .vim/
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -30,3 +30,8 @@ cp .bash_ubuntu ~/
 cp c.snip ~/.vim/bundle/neosnippet-snippets/neosnippets/
 
 mkdir ~/bin
+
+fname=~/.bashrc
+echo "if [ -f ~/.bash_ubuntu ]; then" >>$fname
+echo "    source .bash_ubuntu" >>$fname
+echo "fi" >>$fname
