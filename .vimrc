@@ -37,11 +37,17 @@ nnoremap <leader>ee :tabedit ~/.vimrc<cr>
 nnoremap <leader>ss :source ~/.vimrc<cr>
 
 " Fast nagivate between tabs
-nnoremap <M-[> gT
-nnoremap <M-]> gt
+" help key-notation for more info
+" 	Ubuntu M=alt
+"nnoremap <M-[> gT
+"nnoremap <M-]> gt
+" 	MacOSX D=cmd
+nnoremap <D-[> <C-PageUp>
+nnoremap <D-]> <C-PageDown>
+
 
 " Fast copy from clip board
-nnoremap <C-V> "+gP
+"nnoremap <C-V> "+gP
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface

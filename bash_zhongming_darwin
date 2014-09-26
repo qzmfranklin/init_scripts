@@ -1,0 +1,12 @@
+alias ee="gvim ~/.bash_zhongming"
+alias ee="gvim ~/.bash_zhongming"
+alias ss="source ~/.bash_zhongming"
+
+alias ..="cd .."
+alias l=ls
+alias ls=ls -a
+alias ll=ls -al
+
+if [ -f /opt/intel/mkl/bin/mklvars.sh ]; then
+	. /opt/intel/mkl/bin/mklvars.sh intel64
+fi
