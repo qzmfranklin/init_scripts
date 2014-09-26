@@ -10,3 +10,4 @@ sudo apt-get upgrade
 sh ./install_vim.sh
 
 echo "source ~/.bash_zhongming" >> ~/.bashrc
+cp bash_zhongming_ubuntu ~/.bash_zhongming
