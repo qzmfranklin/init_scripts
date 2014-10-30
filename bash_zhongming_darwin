@@ -1,6 +1,5 @@
-alias ee="gvim ~/.bash_zhongming"
-alias ee="gvim ~/.bash_zhongming"
-alias ss="source ~/.bash_zhongming"
+alias eb="gvim ~/.bash_zhongming"
+alias sb="source ~/.bash_zhongming"
 
 alias ..="cd .."
 alias l=ls

@@ -11,7 +11,7 @@ sudo apt-get upgrade
 
 sh ./install_vim.sh
 
-echo "source ~/.bash_zhongming" >> ~/.bashrc
+echo ". ~/.bash_zhongming" >> ~/.bashrc
 cp bash_zhongming_ubuntu ~/.bash_zhongming
 
 sudo apt-get install steam -y
