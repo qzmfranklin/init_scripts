@@ -6,6 +6,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 brew doctor
 brew update
+brew install flex bison
 brew install git python python3 fftw tree ctags cscope astyle
 brew install macvim --with-lua --with-cscope --with-python3
 pip install numpy scipy matplotlib ipython
