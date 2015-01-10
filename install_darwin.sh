@@ -17,4 +17,4 @@ brew doctor
 sh ./install_vim.sh
 
 echo "source ~/.bash_zhongming" >> ~/.bash_profile
-cp bash_zhongming_darwin ~/.bash_zhongming
+cp bash_zhongming_Darwin ~/.bash_zhongming

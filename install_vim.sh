@@ -21,5 +21,11 @@ cd -
 git config --global user.email "qzmfranklin@gmail.com"
 git config --global user.name "Zhongming Qu"
 
-cp .vimrc ~/
+if [ -f ~/.vimrc ]; then
+  echo "~/.vimrc already exists, back up to ~/.vimrc.orig"
+  mv ~/.vimrc ~/.vimrc.orig
+fi
+
+cp vimrc_`uname` ~/.vimrc
+
 cp c.snip ~/.vim/bundle/neosnippet-snippets/neosnippets/
