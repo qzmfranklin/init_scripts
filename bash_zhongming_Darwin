@@ -2,9 +2,9 @@ alias eb="gvim ~/.bash_zhongming"
 alias sb="source ~/.bash_zhongming"
 
 alias ..="cd .."
-alias l=ls
-alias ls=ls -a
-alias ll=ls -al
+alias l="ls -GF"
+alias ls="ls -aGF"
+alias ll="ls -alGF"
 
 if [ -f /opt/intel/mkl/bin/mklvars.sh ]; then
 	. /opt/intel/mkl/bin/mklvars.sh intel64

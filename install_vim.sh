@@ -14,8 +14,9 @@ git clone https://github.com/Shougo/neosnippet-snippets.git
 git clone https://github.com/Lokaltog/vim-easymotion.git 
 git clone https://github.com/kien/ctrlp.vim.git 
 git clone https://github.com/justinmk/vim-syntax-extra.git
-git clong https://github.com/xolox/vim-easytags.git
-git clont https://github.com/xolox/vim-misc.git
+#git clone https://github.com/xolox/vim-easytags.git
+git clone https://github.com/xolox/vim-misc.git
+git clone https://github.com/flazz/vim-colorschemes.git
 cd -
 
 git config --global user.email "qzmfranklin@gmail.com"
