@@ -19,9 +19,6 @@ git clone https://github.com/xolox/vim-misc.git
 git clone https://github.com/flazz/vim-colorschemes.git
 cd -
 
-git config --global user.email "qzmfranklin@gmail.com"
-git config --global user.name "Zhongming Qu"
-
 if [ -f ~/.vimrc ]; then
   echo "~/.vimrc already exists, back up to ~/.vimrc.orig"
   mv ~/.vimrc ~/.vimrc.orig

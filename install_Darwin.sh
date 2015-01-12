@@ -17,5 +17,8 @@ sudo xcodebuild -license
 brew install macvim --with-lua --with-cscope --with-python
 sh ./install_vim.sh
 
+sh ./install_git.sh
+source ~/.git_bash_completion
+
 echo "source ~/.bash_zhongming" >> ~/.bash_profile
 cp bash_zhongming_Darwin ~/.bash_zhongming

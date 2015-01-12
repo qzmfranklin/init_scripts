@@ -11,6 +11,9 @@ sudo apt-get upgrade
 
 sh ./install_vim.sh
 
+sh ./install_git.sh
+source ~/.git_bash_completion
+
 echo ". ~/.bash_zhongming" >> ~/.bashrc
 cp bash_zhongming_Linux ~/.bash_zhongming
 
