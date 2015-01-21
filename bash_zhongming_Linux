@@ -1,5 +1,7 @@
 source ~/.git_bash_completion
 
+export PATH=~/opt/bin:$PATH
+
 alias eb="gvim ~/.bash_zhongming"
 alias sb="source ~/.bash_zhongming"
 
