@@ -101,7 +101,7 @@ set cursorline
 "set cursorcolumn
 
 syntax enable
-colorscheme desertEx
+colorscheme smyck
 "set background=light
 
 set nobackup

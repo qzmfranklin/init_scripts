@@ -17,6 +17,11 @@ sudo xcodebuild -license
 brew install macvim --with-lua --with-cscope --with-python
 sh ./install_vim.sh
 
+# Color scheme for both the mac terminal and vim
+cd ~/.vim/bundle
+git clone https://github.com/hukl/Smyck-Color-Scheme.git
+cd -
+
 sh ./install_git.sh
 source ~/.git_bash_completion
 
