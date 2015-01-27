@@ -8,3 +8,6 @@ cat gitignore_global >> ~/.gitignore_global
 
 # Bash autocomplete
 cp git_bash_completion ~/.git_bash_completion
+
+# Use SSH to avoid having to type passwords
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
