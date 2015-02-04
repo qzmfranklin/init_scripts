@@ -17,7 +17,8 @@ git clone https://github.com/justinmk/vim-syntax-extra.git
 #git clone https://github.com/xolox/vim-easytags.git
 git clone https://github.com/xolox/vim-misc.git
 git clone https://github.com/flazz/vim-colorschemes.git
-git clone https://github.com/ntpeters/vim-better-whitespace.git
+#git clone https://github.com/ntpeters/vim-better-whitespace.git
+git clone https://github.com/elzr/vim-json.git
 cd -
 
 if [ -f ~/.vimrc ]; then
