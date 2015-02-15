@@ -1,4 +1,7 @@
-source ~/.git_bash_completion
+# Git auto-complete bash
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
 
 export PATH=~/opt/bin:$PATH
 

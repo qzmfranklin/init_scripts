@@ -1,4 +1,7 @@
-source ~/.git_bash_completion
+# Git auto-complete bash
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
 
 export PATH=~/opt/bin:$PATH
 
@@ -13,3 +16,15 @@ alias ll="ls -alGF"
 if [ -f /opt/intel/mkl/bin/mklvars.sh ]; then
 	. /opt/intel/mkl/bin/mklvars.sh intel64
 fi
+
+# For Android Studio
+export ANDROID_NDK_HOME=~/bin/android-ndk-r10d
+launchctl setenv ANDROID_NDK_HOME "$ANDROID_NDK_HOME"
+
+export ANDROID_HOME=~/Library/Android/sdk
+launchctl setenv ANDROID_HOME "$ANDROID_HOME"
+
+export PATH=$ANDROID_NDK_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+
+# For Fleksy
+export FLEKSY_JET_ROOT=~/git/jet-files/jets
