@@ -4,6 +4,9 @@ execute pathogen#infect()
 " Mathematica script file support
 au! BufRead,BufNewFile *.m set ft=mma sw=2
 
+" qbs syntax
+au! BufRead,BufNewFile *.qbs set ft=qml
+
 "" GccSense
 "let g:gccsenseUseOmniFunc = 1
 
