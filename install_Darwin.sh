@@ -7,9 +7,11 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew doctor
 brew update
 brew install flex bison
-brew install git python python3 fftw tree ctags cscope astyle
+brew install git python python3
+brew install fftw tree ctags cscope astyle
+brew install htop pkg-config
 pip install numpy scipy matplotlib ipython
-pip3 install numpy scipy matplotlib ipython3
+pip3 install numpy scipy matplotlib ipython3[all] isodate dateutil
 brew upgrade
 brew doctor
 
