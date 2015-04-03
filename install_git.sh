@@ -12,5 +12,8 @@ cp git_bash_completion ~/.git_bash_completion
 # Use SSH to avoid having to type passwords
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
-# Default push mode to 'default': the pre-2.0 behavior
-git config --global push.default default
+# Default push mode to 'simple': the pre-2.0 behavior
+git config --global push.default simple
+
+# No extra edit when merging
+git config --global core.mergeoptions --no-edit
