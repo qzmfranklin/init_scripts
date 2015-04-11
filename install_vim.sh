@@ -23,6 +23,7 @@ git clone https://github.com/peterhoeg/vim-qml.git
 git clone https://github.com/wannesm/wmgraphviz.vim.git
 git clone https://github.com/tpope/vim-fugitive.git
 vim -u NONE -c "helptags vim-fugitive/doc" -c q
+git clone https://github.com/tpope/vim-unimpaired.git
 cd -
 
 if [ -f ~/.vimrc ]; then
