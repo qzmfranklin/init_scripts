@@ -21,6 +21,8 @@ git clone https://github.com/flazz/vim-colorschemes.git
 git clone https://github.com/elzr/vim-json.git
 git clone https://github.com/peterhoeg/vim-qml.git
 git clone https://github.com/wannesm/wmgraphviz.vim.git
+git clone https://github.com/tpope/vim-fugitive.git
+vim -u NONE -c "helptags vim-fugitive/doc" -c q
 cd -
 
 if [ -f ~/.vimrc ]; then
