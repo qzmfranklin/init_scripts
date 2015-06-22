@@ -10,6 +10,7 @@ brew install flex bison
 brew install git python python3
 brew install fftw tree ctags cscope astyle
 brew install htop pkg-config
+brew install bash-git-prompt
 pip install numpy scipy matplotlib ipython
 pip3 install numpy scipy matplotlib ipython3[all] isodate dateutil
 brew upgrade
