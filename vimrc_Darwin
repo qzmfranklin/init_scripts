@@ -7,6 +7,21 @@ au! BufRead,BufNewFile *.m set ft=mma sw=2
 " qbs syntax
 au! BufRead,BufNewFile *.qbs set ft=qml
 
+" Removes trailing spaces
+ "function TrimWhiteSpace()
+   "%s/\s*$//
+   "''
+":endfunction
+"set list listchars=trail:.,extends:>
+"autocmd FileWritePre * :call TrimWhiteSpace()
+"autocmd FileAppendPre * :call TrimWhiteSpace()
+"autocmd FilterWritePre * :call TrimWhiteSpace()
+"autocmd BufWritePre * :call TrimWhiteSpace()
+
+" For Mac, Alt-[ => tabprevious, Alt-] => tabnext
+nnoremap “ :tabprevious<cr>
+nnoremap ‘ :tabnext<cr>
+
 "" GccSense
 "let g:gccsenseUseOmniFunc = 1
 
@@ -104,7 +119,7 @@ set cursorline
 "set cursorcolumn
 
 syntax enable
-colorscheme smyck
+colorscheme desert
 "set background=light
 
 set nobackup
@@ -116,8 +131,8 @@ set expandtab
 " be smart when using tabs
 set smarttab
 " 1 tab = 4 spaces
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 
 " no indentation for switch case
 
