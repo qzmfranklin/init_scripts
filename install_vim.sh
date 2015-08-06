@@ -25,6 +25,7 @@ git clone https://github.com/tpope/vim-fugitive.git
 git clone https://github.com/autowitch/hive.vim.git
 vim -u NONE -c "helptags vim-fugitive/doc" -c q
 git clone https://github.com/tpope/vim-unimpaired.git
+git clone https://github.com/kshenoy/vim-signature.git
 cd -
 
 if [ -f ~/.vimrc ]; then
