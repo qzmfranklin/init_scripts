@@ -17,7 +17,7 @@ brew upgrade
 brew doctor
 
 sudo xcodebuild -license
-brew install macvim --with-lua --with-cscope --with-python
+brew install macvim --with-lua --with-cscope --with-python3
 sh ./install_vim.sh
 
 # Color scheme for both the mac terminal and vim
