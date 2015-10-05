@@ -104,32 +104,31 @@ abbr #ifndef ... #define ... #endif
 
 snippet def
 alias   #def, #define
-    #define 
+    #define
 
 # Include-Guard
 snippet once
 abbr include-guard
-    #ifndef ${0:SYMBOL}
-        #define $0
+    #ifndef ${1:SYMBOL}
+        #define $1
 
-        ${1:TARGET}
-
-    #endif /* end of include guard $0 */
+        ${0:TARGET}
+    #endif /* end of include guard $1 */
 
 snippet once2
 abbr include-guard extern "C"
-    #ifndef ${0:SYMBOL}
-        #define $0
+    #ifndef ${1:SYMBOL}
+        #define $1
         #ifdef __cplusplus
         extern "C" {
         #endif
 
-        ${1:TARGET}
+        ${0:TARGET}
 
         #ifdef __cplusplus
         }
         #endif
-    #endif /* end of include guard $0 */
+    #endif /* end of include guard $1 */
 
 
 # Ternary conditional operator
