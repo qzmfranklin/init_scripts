@@ -3,6 +3,7 @@ if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
+# Nice display of git status
 if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
 fi
@@ -11,7 +12,8 @@ export PATH=~/bin:~/opt/bin:$PATH
 
 export PS1="\\w:\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)\$ "
 
-alias eb="gvim ~/.bash_zhongming"
+# Fast editing my bash
+alias eb="vim ~/.bash_zhongming"
 alias sb="source ~/.bash_zhongming"
 
 alias ..="cd .."
@@ -19,10 +21,6 @@ alias l="ls -GF"
 alias ls="ls -aGF"
 alias ll="ls -alGF"
 alias ctagscpp="ctags --c++-kinds=+p --fields=+iaS --extra=+q"
-
-if [ -f /opt/intel/mkl/bin/mklvars.sh ]; then
-	. /opt/intel/mkl/bin/mklvars.sh intel64
-fi
 
 # For Android Studio
 export ANDROID_NDK_HOME=~/bin/android-ndk-r10d
@@ -32,9 +30,6 @@ export ANDROID_HOME=~/Library/Android/sdk
 launchctl setenv ANDROID_HOME "$ANDROID_HOME"
 
 export PATH=$ANDROID_NDK_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
-
-# For Fleksy
-export FLEKSY_JET_ROOT=~/git/jet-files/jets
 
 # Unmount evething in ~/dev/
 alias unmountalldev="find ~/dev -type d | xargs umount -f"
