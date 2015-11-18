@@ -1,37 +1,18 @@
 " Pathegen
 execute pathogen#infect()
 
-" check file change every 4 seconds ('CursorHold') and reload the buffer upon detecting change
-set autoread
-au CursorHold * checktime
-
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  "setglobal bomb
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
-
 " Mathematica script file support
 au! BufRead,BufNewFile *.m set ft=mma sw=2
 
-" Mathematica script file support
+" qbs syntax
 au! BufRead,BufNewFile *.qbs set ft=qml
 
-" Graphviz and dot files
-au! BufRead,BufNewFile *.dot *.gv set ft=dot
+"Removes trailing whitespaces on save
+autocmd BufWritePre * :%s/\s\+$//e
 
-" for .hql files
-au BufNewFile,BufRead *.hql set filetype=hive expandtab
-
-" for .q files
-au BufNewFile,BufRead *.q set filetype=hive expandtab
-
-" for .java files
-au BufNewFile,BufRead *.java set filetype=java expandtab shiftwidth=4 tabstop=4
+" For Mac, Alt-[ => tabprevious, Alt-] => tabnext
+nnoremap “ :tabprevious<cr>
+nnoremap ‘ :tabnext<cr>
 
 "" GccSense
 "let g:gccsenseUseOmniFunc = 1
@@ -130,20 +111,25 @@ set cursorline
 "set cursorcolumn
 
 syntax enable
-colorscheme smyck
+colorscheme desert
 "set background=light
 
 set nobackup
 set nowb
 set noswapfile
 
-"" use spaces instead of tabs
-"" be smart when using tabs
-"" 1 tab = 4 spaces
-set expandtab
+" be smart when using tabs
 set smarttab
-set shiftwidth=4
-set tabstop=4
+
+"" use spaces instead of tabs
+"set expandtab
+"set shiftwidth=2
+"set tabstop=2
+
+" unset the tab expansion
+set noexpandtab
+set shiftwidth=8
+set tabstop=8
 
 " no indentation for switch case
 
@@ -212,6 +198,7 @@ set laststatus=2
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ Column:\ %c
 
 " ctags paths
+set tags+=/Users/qzmfrank/.vim/tags/tags
 set tags+=.
 "nnoremap <leader>tl :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./<cr>
 nnoremap <leader>tl :!ctags -R ./<cr><cr>
@@ -336,3 +323,4 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
