@@ -11,7 +11,10 @@ sudo apt-get install -y \
 	python-numpy python-matplotlib python-scipy ipython
 sudo apt-get install -y \
 	libfftw3-dev ctags astyle cscope flex bison
-sudo apt-get install -y nvidia-current
+sudo apt-get install -y \
+	nvidia-current
+sudo apt-get install -y \
+	unity-tweak-tool gnome-tweak-tool
 sudo apt-get upgrade
 
 # Install gcc49, config to using gcc49

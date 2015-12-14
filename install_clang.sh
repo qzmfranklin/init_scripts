@@ -20,10 +20,15 @@ cd llvm/projects
 svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt
 cd -
 
+# install libcxx
+cd llvm/projects
+svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk libcxx
+cd -
+
 # build llvm and clang
 mkdir build #(in-tree build is not supported)
 cd build
 cmake -G "Unix Makefiles" ../llvm
 make
-#This builds both LLVM and Clang for debug mode.
-#Note: For subsequent Clang development, you can just run make clang.
+
+echo 'This builds both LLVM and Clang for debug mode. For subsequent Clang development, you can just run make clang.'
