@@ -3,6 +3,11 @@ if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
+# Perforce auto-completion bash
+if [ -f ~/.p4-completion.bash ]; then
+  . ~/.p4-completion.bash
+fi
+
 export PATH=~/opt/bin:$PATH
 export PATH=~/bin:$PATH
 
