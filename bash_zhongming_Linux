@@ -12,9 +12,142 @@ export LD_LIBRARY_PATH=/opt/icu4c/lib:$LD_LIBRARY_PATH
 
 alias eb="gvim ~/.bash_zhongming"
 alias sb="source ~/.bash_zhongming"
+alias l="ls -GF --color=auto"
+alias ls="ls -aGF --color=auto"
+alias ll="ls -alGF --color=auto"
 
 alias ..="cd .."
 
-if [ -f /opt/intel/mkl/bin/mklvars.sh ]; then
-	. /opt/intel/mkl/bin/mklvars.sh intel64
-fi
+
+################################################################################
+# The following scripts are shamelessly borrowed from Andy (apatti). There are
+# several functions defined here:
+#   - start-ssh-agent()
+#   - ssh-add-key()
+#   - ff(), fft(), ffc()
+#   - p(), d()
+################################################################################
+
+start-ssh-agent() {
+    #
+    # Start an ssh agent if none is running already.
+    # * First we try to connect to one via SSH_AUTH_SOCK
+    # * If that doesn't work out, we try via the file ssh-agent-environment
+    # * And if that doesn't work out either, we just start a fresh one and write
+    #   the information about it to ssh-agent-environment for future use.
+    #
+    # We don't really test for a correct value of SSH_AGENT_PID as the only 
+    # consequence of not having it set seems to be that one cannot kill
+    # the ssh-agent with ssh-agent -k. But starting another one wouldn't 
+    # help to clean up the old one anyway.
+    #
+    # Note: ssh-add return codes: 
+    #   0 = success,
+    #   1 = specified command fails (e.g., no keys with ssh-add -l)
+    #   2 = unable to contact the authentication agent
+    #
+    system=`hostname`
+    sshfile=~/\.ssh_agent_$system
+
+    #
+    # First effort: Via SSH_AUTH_SOCK/SSH_AGENT_PID
+    #
+    if [ -n "$SSH_AUTH_SOCK" ]; then
+
+	# SSH_AUTH_SOCK is defined, so try to connect to the authentication agent
+	# it should point to. If it succeeds, reset newsshagent.
+	ssh-add -l &>/dev/null 
+	if [[ $? != 2 ]]; then 
+	    echo "SSH agent already running."
+	    unset sshfile
+	    return 0
+	else
+	    echo "Could not contact the ssh-agent pointed at by SSH_AUTH_SOCK, trying more..."
+	fi
+	
+    fi
+
+    #
+    # Second effort: If we're still looking for an ssh-agent, try via $sshfile
+    #
+    if [ -e "$sshfile" ]; then
+
+	# Load the environment given in $sshfile
+	. $sshfile &>/dev/null
+	# Try to contact the ssh-agent
+	ssh-add -l &>/dev/null 
+	if [[ $? != 2 ]]; then 
+	    echo "SSH agent already running; reconfigured the environment."
+	    unset sshfile
+	    return 0
+	else
+	    echo "Could not contact the ssh-agent pointed at by $sshfile."
+	fi
+
+    fi
+    
+    #
+    # And if we haven't found a working one, start a new one...
+    #
+
+    #Create a new ssh-agent
+    echo "Creating new SSH agent."
+    ssh-agent -s > $sshfile && . $sshfile    
+
+    unset sshfile
+
+}
+
+ssh-add-key() {
+    ssh-add -l > /dev/null 2>&1
+    ret=$?
+    if [ $ret -eq 1 ]; then
+	ssh-add
+    fi
+}
+
+start-ssh-agent &>/dev/null
+ssh-add-key
+
+alias ff='find . -name' 
+function fft()
+{
+   find . -xtype f ! -name "*~" -name "$1" -exec grep -H $2 \{\} \; ;
+   #find . -name "$1" -exec grep -H $2 \{\} \; ;
+}
+
+
+function ffc()
+{
+   find . -name "*.[ch]*" -exec grep -H $1 \{\} \; ;
+}
+
+function ediff()
+{
+   emacs $1 $2 -f ediffdefaults;
+}
+
+function p()
+{
+   if (($# > 0)); then
+      pushd +$1 > /dev/null
+   else
+      pushd > /dev/null
+   fi
+   d
+}
+
+function d()
+{
+   let count=0
+   for items in `dirs`
+   do
+      echo $count $items
+      let count=$((count+1));
+   done
+}
+
+
+################################################################################
+# This is the end of scripts borrowed from Andy.
+################################################################################
