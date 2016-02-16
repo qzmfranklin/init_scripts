@@ -17,6 +17,9 @@ set autoread
 " qbs syntax
 au! BufRead,BufNewFile *.qbs set ft=qml
 
+" ansible syntax
+au! BufRead,BufNewFile *.yml set syntax=ansible
+
 set number
 
 " With a map leader it's possible to do extra key combinations
@@ -42,11 +45,11 @@ nnoremap <leader>ss :source ~/.vimrc<cr>
 " Fast nagivate between tabs
 " help key-notation for more info
 " 	Ubuntu M=alt
-"nnoremap <M-[> gT
-"nnoremap <M-]> gt
+nnoremap <M-[> gT
+nnoremap <M-]> gt
 " 	MacOSX D=cmd
-nnoremap <D-[> <C-PageUp>
-nnoremap <D-]> <C-PageDown>
+"nnoremap <D-[> <C-PageUp>
+"nnoremap <D-]> <C-PageDown>
 
 
 " Fast copy from clip board
@@ -151,14 +154,14 @@ set noswapfile
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
-"set expandtab
+set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
 
 " 1 tab == 4 spaces
-"set shiftwidth=8
-"set tabstop=8
+set shiftwidth=8
+set tabstop=8
 
 " Linebreak on 500 characters
 set lbr
@@ -267,8 +270,6 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
