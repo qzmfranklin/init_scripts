@@ -27,6 +27,8 @@ alias l="ls -GF --color=auto"
 alias ls="ls -aGF --color=auto"
 alias ll="ls -alGF --color=auto"
 
+alias grep="grep --color=auto"
+
 alias ..="cd ..;"
 alias up="cd ..;"
 
