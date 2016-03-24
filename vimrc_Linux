@@ -19,6 +19,10 @@ au! BufRead,BufNewFile *.qbs set ft=qml
 
 " ansible syntax
 au! BufRead,BufNewFile *.yml set syntax=ansible
+"au Filetype python setl et ts=2 sw=2
+
+" Show trailing whitespace only after some text (ignores blank lines):
+nnoremap <leader>ww :/\S\zs\s\+$
 
 set number
 
@@ -160,8 +164,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=8
-set tabstop=8
+set shiftwidth=4
+set tabstop=4
 
 " Linebreak on 500 characters
 set lbr
@@ -422,7 +426,7 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
@@ -447,12 +451,12 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
@@ -466,7 +470,6 @@ endif
 "autocmd vimenter * NERDTree
 autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " close if the only open window
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Easymotion
@@ -487,3 +490,9 @@ let g:EasyMotion_use_smartsign_us = 1 " US layout
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
 nmap s <Plug>(easymotion-s2)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-better-whitespace
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Strip trailing whitespaces on save. Use ToggleStripWhitespaceOnSave to toggle.
+autocmd BufWritePre * StripWhitespace
