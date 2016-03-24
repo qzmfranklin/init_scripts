@@ -14,13 +14,6 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" qbs syntax
-au! BufRead,BufNewFile *.qbs set ft=qml
-
-" ansible syntax
-au! BufRead,BufNewFile *.yml set syntax=ansible
-"au Filetype python setl et ts=2 sw=2
-
 " Show trailing whitespace only after some text (ignores blank lines):
 nnoremap <leader>ww :/\S\zs\s\+$
 
@@ -178,6 +171,11 @@ set wrap "Wrap lines
 " Python .py file, use 4-space indentation
 au Filetype python setl et ts=4 sw=4
 
+" ansible syntax
+au! BufRead,BufNewFile *.yml set syntax=ansible ts=2 sw=2
+
+" qbs syntax
+au! BufRead,BufNewFile *.qbs set ft=qml
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -451,12 +449,12 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: "\<TAB>"
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
