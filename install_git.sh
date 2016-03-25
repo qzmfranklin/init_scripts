@@ -6,9 +6,6 @@ git config --global user.name "Zhongming Qu"
 git config --global core.excludesfile '~/.gitignore_global'
 cat gitignore_global >> ~/.gitignore_global
 
-# Bash autocomplete
-cp git_bash_completion ~/.git_bash_completion
-
 # Default push mode to 'simple': the pre-2.0 behavior
 git config --global push.default simple
 

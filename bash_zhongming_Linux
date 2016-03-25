@@ -1,14 +1,9 @@
-# Git auto-complete bash
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
+if [ -d ~/.zhongming_completion ]; then
+    for file in ~/.zhongming_completion/*-completion.bash; do
+        . $file
+    done
 fi
 
-# Perforce auto-completion bash. Does not seem to work at the moment...
-if [ -f ~/.p4-completion.bash ]; then
-  . ~/.p4-completion.bash
-fi
-
-# Perforce auto-completion bash
 if [ -f ~/p4/1/main/dev.env ]; then
   . ~/p4/1/main/dev.env
 fi
@@ -23,9 +18,9 @@ export LD_LIBRARY_PATH=/opt/icu4c/lib:$LD_LIBRARY_PATH
 
 alias eb="gvim ~/.bash_zhongming"
 alias sb="source ~/.bash_zhongming"
-alias l="ls -GF --color=auto"
-alias ls="ls -aGF --color=auto"
-alias ll="ls -alGF --color=auto"
+alias l="ls -F --color=auto"
+alias ls="ls -aF --color=auto"
+alias ll="ls -alhF --color=auto"
 
 alias grep="grep --color"
 
@@ -53,12 +48,12 @@ start-ssh-agent() {
     # * And if that doesn't work out either, we just start a fresh one and write
     #   the information about it to ssh-agent-environment for future use.
     #
-    # We don't really test for a correct value of SSH_AGENT_PID as the only 
+    # We don't really test for a correct value of SSH_AGENT_PID as the only
     # consequence of not having it set seems to be that one cannot kill
-    # the ssh-agent with ssh-agent -k. But starting another one wouldn't 
+    # the ssh-agent with ssh-agent -k. But starting another one wouldn't
     # help to clean up the old one anyway.
     #
-    # Note: ssh-add return codes: 
+    # Note: ssh-add return codes:
     #   0 = success,
     #   1 = specified command fails (e.g., no keys with ssh-add -l)
     #   2 = unable to contact the authentication agent
@@ -73,15 +68,15 @@ start-ssh-agent() {
 
 	# SSH_AUTH_SOCK is defined, so try to connect to the authentication agent
 	# it should point to. If it succeeds, reset newsshagent.
-	ssh-add -l &>/dev/null 
-	if [[ $? != 2 ]]; then 
+	ssh-add -l &>/dev/null
+	if [[ $? != 2 ]]; then
 	    echo "SSH agent already running."
 	    unset sshfile
 	    return 0
 	else
 	    echo "Could not contact the ssh-agent pointed at by SSH_AUTH_SOCK, trying more..."
 	fi
-	
+
     fi
 
     #
@@ -92,8 +87,8 @@ start-ssh-agent() {
 	# Load the environment given in $sshfile
 	. $sshfile &>/dev/null
 	# Try to contact the ssh-agent
-	ssh-add -l &>/dev/null 
-	if [[ $? != 2 ]]; then 
+	ssh-add -l &>/dev/null
+	if [[ $? != 2 ]]; then
 	    echo "SSH agent already running; reconfigured the environment."
 	    unset sshfile
 	    return 0
@@ -102,14 +97,14 @@ start-ssh-agent() {
 	fi
 
     fi
-    
+
     #
     # And if we haven't found a working one, start a new one...
     #
 
     #Create a new ssh-agent
     echo "Creating new SSH agent."
-    ssh-agent -s > $sshfile && . $sshfile    
+    ssh-agent -s > $sshfile && . $sshfile
 
     unset sshfile
 
@@ -126,7 +121,7 @@ ssh-add-key() {
 start-ssh-agent &>/dev/null
 ssh-add-key
 
-alias ff='find . -name' 
+alias ff='find . -name'
 function fft()
 {
    find . -xtype f ! -name "*~" -name "$1" -exec grep -H $2 \{\} \; ;

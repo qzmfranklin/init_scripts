@@ -33,7 +33,8 @@ git clone https://github.com/hukl/Smyck-Color-Scheme.git
 cd -
 
 sh ./install_git.sh
-source ~/.git_bash_completion
+
+sh ./install_completion_bash.sh
 
 echo ". ~/.bash_zhongming" >> ~/.bashrc
 cp bash_zhongming_Linux ~/.bash_zhongming
