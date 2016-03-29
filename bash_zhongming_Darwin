@@ -1,3 +1,13 @@
+# Colorful and git-aware prompt.
+if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+fi
+
+if [ -d ~/.zhongming_completion ]; then
+	for FILE in ~/.zhongming_completion/*.bash; do
+		. $FILE
+	done
+fi
 
 export PATH=~/bin:~/opt/bin:$PATH
 
