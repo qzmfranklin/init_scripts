@@ -1,3 +1,8 @@
+# Color scheme for both the mac terminal and vim
+cd ~/.vim/bundle
+git clone https://github.com/hukl/Smyck-Color-Scheme.git
+cd -
+
 # User name and so forth
 git config --global user.email "qzmfranklin@gmail.com"
 git config --global user.name "Zhongming Qu"

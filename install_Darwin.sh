@@ -1,33 +1,33 @@
 #!/bin/sh
 
-echo "Please install the complete XCode, including the command line tools"
+# Installing code requires manual typing.
+echo "Please install the complete XCode, including the command line tools."
+sudo xcodebuild -license
 
+# Install brew and packages.
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
 brew doctor
 brew update
-brew install flex bison
 brew install git python python3
-brew install fftw tree ctags cscope astyle
-brew install htop pkg-config
+brew install tree ctags astyle
+brew install pkg-config
 brew install bash-git-prompt
-#pip install numpy scipy matplotlib ipython
-pip3 install numpy scipy matplotlib ipython3[all] isodate dateutil
-brew upgrade
-brew doctor
-
-sudo xcodebuild -license
 brew install macvim --with-lua --with-python3
+
 sh ./install_vim.sh
-
-# Color scheme for both the mac terminal and vim
-cd ~/.vim/bundle
-git clone https://github.com/hukl/Smyck-Color-Scheme.git
-cd -
-
 sh ./install_git.sh
-
 sh ./install_completion_bash.sh
 
-echo "source ~/.bash_zhongming" >> ~/.bash_profile
+echo << EOF >> ~/.bashrc
+if [ -f ~/.bash_zhongming ]: then
+	. ~/.bash_zhongming
+fi
+EOF
 cp bash_zhongming_Darwin ~/.bash_zhongming
+
+echo << EOF >> ~/.bash_zhongming
+# Colorful and git-aware prompt.
+if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+fi
+EOF

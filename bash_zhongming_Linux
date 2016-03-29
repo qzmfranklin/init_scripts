@@ -1,9 +1,4 @@
-if [ -d ~/.zhongming_completion ]; then
-    for file in ~/.zhongming_completion/*-completion.bash; do
-        . $file
-    done
-fi
-
+# For LuminateWireless.
 if [ -f ~/p4/1/main/dev.env ]; then
   . ~/p4/1/main/dev.env
 fi

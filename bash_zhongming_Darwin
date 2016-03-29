@@ -1,14 +1,7 @@
-if [ -d ~/.zhongming_completion ]; then
-    for file in ~/.zhongming_completion/*-completion.bash; do
-        . $file
-    done
-fi
 
 export PATH=~/bin:~/opt/bin:$PATH
 
-export PS1="\\w:\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)\$ "
-
-alias eb="gvim ~/.bash_zhongming"
+alias eb="mvim ~/.bash_zhongming"
 alias sb="source ~/.bash_zhongming"
 
 alias ..="cd .."
