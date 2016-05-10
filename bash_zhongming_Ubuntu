@@ -21,6 +21,9 @@ fi
 
 export PATH=~/opt/bin:$PATH
 export PATH=~/bin:$PATH
+export PATH=~/swift/swift-2.2-RELEASE-ubuntu14.04/usr/bin:$PATH
+
+export IPMI_PASSWORD=ADMIN
 
 # My ICU4C library installs to /opt/icu4c instead /usr/lib
 if [ -d /opt/icu4c/lib ]; then
@@ -34,7 +37,12 @@ alias l="ls -F --color=auto"
 alias ls="ls -aF --color=auto"
 alias ll="ls -alhF --color=auto"
 
+alias ll4="~/p4/1/main/devtools/l4/l4.py"
+
 alias grep="grep --color"
+
+# List untracked files in the current directory
+alias p4x="find . -type f | p4 -x- have 2>&1 >/dev/null | cut -d' ' -f1 "
 
 # Darwin-like command line clipboard.
 alias pbcopy='xclip -selection clipboard'
@@ -52,6 +60,22 @@ alias up="cd ..;"
 #   - p(), d()
 ################################################################################
 
+has-ssh-agent() {
+    # Return 1 if the current shell can connect to ssh-agent.
+    # Return 0 otherwise.
+    ssh-add -l &> /dev/null
+    ret=$?
+    # Note: ssh-add return codes:
+    #   0 = success,
+    #   1 = specified command fails (e.g., no keys with ssh-add -l)
+    #   2 = unable to contact the authentication agent
+    if [ $ret -eq 2 ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 start-ssh-agent() {
     #
     # Start an ssh agent if none is running already.
@@ -65,72 +89,58 @@ start-ssh-agent() {
     # the ssh-agent with ssh-agent -k. But starting another one wouldn't
     # help to clean up the old one anyway.
     #
-    # Note: ssh-add return codes:
-    #   0 = success,
-    #   1 = specified command fails (e.g., no keys with ssh-add -l)
-    #   2 = unable to contact the authentication agent
-    #
-    system=`hostname`
-    sshfile=~/\.ssh_agent_$system
-
-    #
-    # First effort: Via SSH_AUTH_SOCK/SSH_AGENT_PID
-    #
     if [ -n "$SSH_AUTH_SOCK" ]; then
-
-	# SSH_AUTH_SOCK is defined, so try to connect to the authentication agent
-	# it should point to. If it succeeds, reset newsshagent.
-	ssh-add -l &>/dev/null
-	if [[ $? != 2 ]]; then
-	    echo "SSH agent already running."
+        #
+        # First effort: Via SSH_AUTH_SOCK/SSH_AGENT_PID
+        #
+	    # SSH_AUTH_SOCK is defined, so try to connect to the authentication agent
+	    # it should point to. If it succeeds, reset newsshagent.
+	    ssh-add -l &> /dev/null
+	    if [[ $? != 2 ]]; then
+	        echo "SSH agent already running."
+	        return 0
+	    else
+	        echo "Could not contact the ssh-agent pointed at by SSH_AUTH_SOCK, trying more..."
+	    fi
+    elif [ -f "$sshfile" ]; then
+        #
+        # Second effort: $sshfile
+        #
+	    # Load the environment given in $sshfile
+        sshfile=~/\.ssh_agent_`hostname`_`whoami`
+	    . $sshfile &>/dev/null
 	    unset sshfile
-	    return 0
-	else
-	    echo "Could not contact the ssh-agent pointed at by SSH_AUTH_SOCK, trying more..."
-	fi
-
+	    # Try to contact the ssh-agent
+	    ssh-add -l &>/dev/null
+	    if [[ $? != 2 ]]; then
+	        echo "SSH agent already running; reconfigured the environment."
+	        return 0
+	    else
+	        echo "Could not contact the ssh-agent pointed at by $sshfile."
+	    fi
+    else
+        #
+        # And if we haven't found a working one, start a new one.
+        #
+        #Create a new ssh-agent
+        sshfile=~/\.ssh_agent_`hostname`_`whoami`
+        echo "Creating new SSH agent."
+        ssh-agent -s > $sshfile && . $sshfile
+        # Other users must not use or tamper with the $sshfile.
+        chmod 700 $sshfile
+        unset sshfile
     fi
-
-    #
-    # Second effort: If we're still looking for an ssh-agent, try via $sshfile
-    #
-    if [ -e "$sshfile" ]; then
-
-	# Load the environment given in $sshfile
-	. $sshfile &>/dev/null
-	# Try to contact the ssh-agent
-	ssh-add -l &>/dev/null
-	if [[ $? != 2 ]]; then
-	    echo "SSH agent already running; reconfigured the environment."
-	    unset sshfile
-	    return 0
-	else
-	    echo "Could not contact the ssh-agent pointed at by $sshfile."
-	fi
-
-    fi
-
-    #
-    # And if we haven't found a working one, start a new one...
-    #
-
-    #Create a new ssh-agent
-    echo "Creating new SSH agent."
-    ssh-agent -s > $sshfile && . $sshfile
-
-    unset sshfile
-
 }
 
 ssh-add-key() {
     ssh-add -l > /dev/null 2>&1
     ret=$?
     if [ $ret -eq 1 ]; then
-	ssh-add
+	    ssh-add
     fi
 }
 
-start-ssh-agent &>/dev/null
+start-ssh-agent &> /dev/null
 ssh-add-key
 
 alias ff='find . -name'
