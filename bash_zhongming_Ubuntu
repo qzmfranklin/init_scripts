@@ -23,7 +23,9 @@ export PATH=~/opt/bin:$PATH
 export PATH=~/bin:$PATH
 export PATH=~/swift/swift-2.2-RELEASE-ubuntu14.04/usr/bin:$PATH
 
+# Easy ipmi command
 export IPMI_PASSWORD=ADMIN
+alias it="ipmitool -I lanplus -U ADMIN -E"
 
 # My ICU4C library installs to /opt/icu4c instead /usr/lib
 if [ -d /opt/icu4c/lib ]; then
@@ -37,9 +39,9 @@ alias l="ls -F --color=auto"
 alias ls="ls -aF --color=auto"
 alias ll="ls -alhF --color=auto"
 
-alias ll4="~/p4/1/main/devtools/l4/l4.py"
-
 alias grep="grep --color"
+
+alias sshfs-mnt="sshfs -o allow_other,IdentityFile=~/.ssh/zhongming_luminate_gw"
 
 # List untracked files in the current directory
 alias p4x="find . -type f | p4 -x- have 2>&1 >/dev/null | cut -d' ' -f1 "
