@@ -14,21 +14,21 @@ git clone https://github.com/Shougo/neosnippet-snippets.git
 git clone https://github.com/Lokaltog/vim-easymotion.git
 git clone https://github.com/kien/ctrlp.vim.git
 git clone https://github.com/justinmk/vim-syntax-extra.git
-#git clone https://github.com/xolox/vim-easytags.git
 git clone https://github.com/xolox/vim-misc.git
 git clone https://github.com/flazz/vim-colorschemes.git
 git clone https://github.com/ntpeters/vim-better-whitespace.git
 git clone https://github.com/elzr/vim-json.git
 git clone https://github.com/peterhoeg/vim-qml.git
 git clone https://github.com/wannesm/wmgraphviz.vim.git
-git clone https://github.com/tpope/vim-fugitive.git
 git clone https://github.com/autowitch/hive.vim.git
-vim -u NONE -c "helptags vim-fugitive/doc" -c q
 git clone https://github.com/tpope/vim-unimpaired.git
 git clone https://github.com/kshenoy/vim-signature.git
 git clone https://github.com/tfnico/vim-gradle.git
 git clone https://github.com/pearofducks/ansible-vim.git
 git clone https://github.com/fatih/vim-go.git
+git clone https://github.com/tpope/vim-fugitive.git
+#vim -u NONE -c "helptags vim-fugitive/doc" -c q
+#git clone https://github.com/xolox/vim-easytags.git
 cd -
 
 if [ -f ~/.vimrc ]; then

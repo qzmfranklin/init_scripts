@@ -20,10 +20,10 @@ brew install macvim --with-lua --with-python3
 sh ./install_vim.sh
 sh ./install_git.sh
 
-ln -s $this_dir/bash_zhongming_Darwin ~/.bash_zhongming
-ln -s $this_dir/completion ~/.zhongming_completion
+ln -fs $this_dir/bash_zhongming_Darwin ~/.bash_zhongming
+ln -fs $this_dir/completion ~/.zhongming_completion
 echo << EOF >> ~/.bashrc
-if [ -f ~/.bash_zhongming ]: then
+if [ -f ~/.bash_zhongming ]; then
 	. ~/.bash_zhongming
 fi
 EOF

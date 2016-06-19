@@ -1,0 +1,14 @@
+---
+
+- name: mkdir ~/.bashrc.d
+  file: >
+    path="{{ lookup('env','HOME') }}/{{ item }}"
+    state=directory
+    force=yes
+  with_items:
+    - .bashrc.d
+    - .bashrc.d/alias
+    - .bashrc.d/completion
+    - .bashrc.d/
+
+- name:

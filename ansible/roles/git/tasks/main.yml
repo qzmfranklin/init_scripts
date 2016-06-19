@@ -1,0 +1,34 @@
+---
+
+- name: (Darwin only) update homebrew and upgrade packages
+  shell: brew update && brew upgrade
+  when: ansible_os_family == "Darwin"
+
+- name: (Darwin only) install {git,wget} with homebrew
+  homebrew: name={{ item }} state=present
+  when: ansible_os_family == "Darwin"
+  with_items:
+    - git
+
+- name: (Ubuntu only) install git with apt-get
+  apt: pkg=git state=latest update_cache=yes
+  when: ansible_os_family == "Ubuntu"
+
+- name: install ~/.gitconfig
+  copy: >
+    src=gitconfig
+    dest="{{ lookup('env','HOME') }}/.gitconfig"
+
+- name: install ~/.gitignore_global
+  copy: >
+    src=gitignore_global
+    dest="{{ lookup('env','HOME') }}/.gitignore_global"
+
+- name: mkdir ~/.bash_completion
+  file: name="{{ lookup('env','HOME') }}/.bash_completion" state=directory
+
+#- name: download git-completion.bash to ~/.bash_completion
+  #get_url: >
+    #url=https://raw.github.com/git/git/blob/master/contrib/completion/git-completion.bash
+    #dest="{{ lookup('env','HOME') }}/.bash_completion/git-completion.bash"
+    #force=yes

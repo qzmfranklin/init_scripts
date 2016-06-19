@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - git
+    - bashrc
+    - vim

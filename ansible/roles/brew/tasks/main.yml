@@ -1,0 +1,16 @@
+---
+- name: install homebrew if not installed
+  shell: >
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ignore_errors: yes
+
+- name: homebrew install standard packages
+  homebrew: name={{ item }} state=present
+  with_items:
+    - astyle
+    - ctags
+    - pkg-config
+    - python
+    - python3
+    - tree
+    - wget
