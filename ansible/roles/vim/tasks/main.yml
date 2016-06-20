@@ -7,12 +7,13 @@
     install_options="--with-python3 --with-lua"
   when: ansible_os_family == "Darwin"
 
-- name: (Ubuntu only) install gvim
+- name: (Debian only) install gvim
+  become_user: root
   apt:
     pkg=vim-gnome
     state=latest
     update_cache=yes
-  when: ansible_os_family == "Ubuntu"
+  when: ansible_os_family == "Debian"
 
 - name: install pathogen
   shell: >
@@ -31,6 +32,7 @@
     dest="{{ lookup('env','HOME') }}/.vim/bundle/{{ item.1 }}"
     clone=yes
     update=yes
+    force=yes
   with_items:
     - [ [ 'https://github.com/hukl/Smyck-Color-Scheme', 'Smyck-Color-Scheme' ] ]
     - [ [ 'https://github.com/vim-scripts/taglist.vim', 'taglist.vim' ] ]
