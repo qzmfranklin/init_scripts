@@ -15,20 +15,19 @@
   when: ansible_os_family == "Ubuntu"
 
 - name: install ~/.gitconfig
-  copy: >
+  copy:
     src=gitconfig
     dest="{{ lookup('env','HOME') }}/.gitconfig"
 
 - name: install ~/.gitignore_global
-  copy: >
+  copy:
     src=gitignore_global
     dest="{{ lookup('env','HOME') }}/.gitignore_global"
 
-- name: mkdir ~/.bash_completion
-  file: name="{{ lookup('env','HOME') }}/.bash_completion" state=directory
-
-#- name: download git-completion.bash to ~/.bash_completion
-  #get_url: >
-    #url=https://raw.github.com/git/git/blob/master/contrib/completion/git-completion.bash
-    #dest="{{ lookup('env','HOME') }}/.bash_completion/git-completion.bash"
-    #force=yes
+- name: download git-completion.bash git-prompt.sh
+  uri:
+    url="https://raw.githubusercontent.com/git/git/master/contrib/completion/{{ item.0 }}"
+    dest="{{ lookup('env','HOME') }}/.bashrc.d/{{ item.1 }}"
+  with_items:
+    - [ [ 'git-completion.bash', 'completion.d/git-completion.bash' ] ]
+    - [ [ 'git-prompt.sh', 'prompt.d/git-prompt.sh' ] ]

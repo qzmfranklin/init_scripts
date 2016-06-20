@@ -1,0 +1,8 @@
+if [ -d ~/.bashrc.d ]; then
+    find . -type f | xargs source
+    #for FILE in ~/.bashrc.d/*.bash; do
+        #. $FILE
+    #done
+fi
+
+export PATH=~/bin:~/opt/bin:$PATH

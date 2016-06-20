@@ -14,11 +14,6 @@
     update_cache=yes
   when: ansible_os_family == "Ubuntu"
 
-- name: mkdir ~/.vim
-  file: >
-    path="{{ lookup('env','HOME') }}/.vim"
-    state=absent
-
 - name: install pathogen
   shell: >
     mkdir -p ~/.vim/autoload ~/.vim/bundle &&
@@ -37,6 +32,7 @@
     clone=yes
     update=yes
   with_items:
+    - [ [ 'https://github.com/hukl/Smyck-Color-Scheme', 'Smyck-Color-Scheme' ] ]
     - [ [ 'https://github.com/vim-scripts/taglist.vim', 'taglist.vim' ] ]
     - [ [ 'https://github.com/scrooloose/nerdtree', 'nerdtree' ] ]
     - [ [ 'https://github.com/scrooloose/nerdcommenter', 'nerdcommenter' ] ]
