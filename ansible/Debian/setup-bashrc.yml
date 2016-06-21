@@ -17,3 +17,12 @@
   lineinfile: >
     dest="{{ lookup('env','HOME') }}/.bashrc"
     line="[ -f ~/.bashrc_main ] && . ~/.bashrc_main"
+
+- name: install xclip
+  become: yes
+  become_user: root
+  apt: pkg=xclip state=latest update_cache=yes
+
+- name: become unpreveliged user
+  become: no
+  command: /bin/true
