@@ -7,15 +7,10 @@ au! BufRead,BufNewFile *.m set ft=mma sw=2
 " qbs syntax
 au! BufRead,BufNewFile *.qbs set ft=qml
 
+au! BufRead,BufNewFile *.yml set ft=ansible
+
 "Removes trailing whitespaces on save
 autocmd BufWritePre * :%s/\s\+$//e
-
-" For Mac, Alt-[ => tabprevious, Alt-] => tabnext
-nnoremap “ :tabprevious<cr>
-nnoremap ‘ :tabnext<cr>
-
-"" GccSense
-"let g:gccsenseUseOmniFunc = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Easymotion
@@ -43,13 +38,6 @@ nmap s <Plug>(easymotion-s2)
 autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " close if the only open window
 
-"" Fortran folding
-"let fortran_dialect="f90"
-let fortran_fold=1
-let fortran_fold_conditionals=1
-let fortran_fold_multilinecomments=1
-"let fortran_more_precise=1
-
 "set modeline
 filetype plugin on
 filetype indent on
@@ -70,36 +58,32 @@ let g:tex_conceal = ""
 " fast save, quit, save all, quit all
 nnoremap <leader>w :w!<cr>
 nnoremap <leader>q :q!<cr>
-nnoremap <leader>W :wa!<cr>
-nnoremap <leader>Q :qa!<cr>
 
 " run current file in terminal
 nnoremap <leader>r :!./%
 
-" source the current file in the terminal
-nnoremap <leader>so :!source %<cr><cr>
-
-" fast make
-nnoremap <leader>m :!make -j8<cr><cr>
-
-" fast open pdf
-nnoremap <leader>l :!open out.pdf<cr><cr>
-
-" fast preview latex with Makefile
-nnoremap <leader>ll :!rm -rf log; make>>log; open %<.pdf; make clean<cr><cr>
-
-" fast preview latex without Makefile (dirty, not recommended)
-nnoremap <leader>kk :!rm -rf log; latex %; latex %; latex %; dvipdf %<.dvi; open %<.pdf<cr><cr>
-
 " fast way out of insert mode
 inoremap jk <esc>
 
+" function for getting the selected text in visual mode
+" Originally from this thread:
+"http://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
 " surround the cursor word with quote and braces
-nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
-nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
-nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
-nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap q" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap q' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap q[ viw<esc>a]<esc>hbi[<esc>lel
+nnoremap q{ viw<esc>a}<esc>hbi{<esc>lel
+nnoremap q( viw<esc>a)<esc>hbi(<esc>lel
 
 "set ignorecase
 set smartcase
@@ -111,7 +95,11 @@ set cursorline
 "set cursorcolumn
 
 syntax enable
-colorscheme desert
+if has('unix')
+    colorscheme desert
+elseif has('mac')
+    colorscheme smyck
+endif
 "set background=light
 
 set nobackup
@@ -122,33 +110,18 @@ set noswapfile
 set smarttab
 
 "" use spaces instead of tabs
-"set expandtab
-"set shiftwidth=2
-"set tabstop=2
+set expandtab
+set shiftwidth=4
+set tabstop=4
 
 " unset the tab expansion
-set noexpandtab
-set shiftwidth=8
-set tabstop=8
-
-" no indentation for switch case
+"set noexpandtab
+"set shiftwidth=8
+"set tabstop=8
 
 " linebreak on 80 characters
 set lbr
 set tw=80
-
-" fortran free format
-autocmd Filetype fortran set textwidth=132
-
-"" auto detect fortran extension
-"let s:extfname = expand("%:e")
-"if s:extfname ==? "f90"
-"let fortran_free_source=1
-"unlet! fortran_fixed_source
-"else
-"let fortran_fixed_source=1
-"unlet! fortran_free_source
-"endif
 
 set ai      " auto indent
 set si      " smart indent
@@ -197,13 +170,6 @@ set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ Column:\ %c
 
-" ctags paths
-set tags+=/Users/qzmfrank/.vim/tags/tags
-set tags+=.
-"nnoremap <leader>tl :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ./<cr>
-nnoremap <leader>tl :!ctags -R ./<cr><cr>
-"nnoremap <leader>tg :!ctags -R
-
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
@@ -216,7 +182,22 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
+if has('unix')
+    nnoremap <M-[> :tabprevious<cr>
+    nnoremap <M-]> :tabnext<cr>
+elseif has('mac')
+    nnoremap “ :tabprevious<cr>
+    nnoremap ‘ :tabnext<cr>
+endif
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+PLUGIN-SPECIFIC SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Neocompelte settings
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
