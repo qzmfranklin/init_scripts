@@ -1,5 +1,10 @@
 ---
 
 - name: install git with apt-get
+  become: yes
   become_user: root
   apt: pkg=git state=latest update_cache=yes
+
+- name: become unpreveliged user
+  become: no
+  command: /bin/true

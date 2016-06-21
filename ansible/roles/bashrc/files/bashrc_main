@@ -1,8 +1,8 @@
-if [ -d ~/.bashrc.d ]; then
-    find . -type f | xargs source
-    #for FILE in ~/.bashrc.d/*.bash; do
-        #. $FILE
-    #done
-fi
-
-export PATH=~/bin:~/opt/bin:$PATH
+[ ! -d ~/.bashrc.d ] || exit 1
+(
+    find ~/.bashrc.d/alias.d -type f -name '*.sh' | xargs source
+    find ~/.bashrc.d/completion.d -type f -name '*.bash' | xargs source
+    find ~/.bashrc.d/env.d -type f -name '*.sh' | xargs source
+    find ~/.bashrc.d/function.d -type f -name '*.sh' | xargs source
+    [ -f ~/.bashrc.d/prompt.d/main.sh ] && source ~/.bashrc.d/prompt.d/main.sh
+) &> /dev/null

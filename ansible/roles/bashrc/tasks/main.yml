@@ -10,6 +10,8 @@
   with_items:
     - alias.d
     - completion.d
+    - env.d
+    - function.d
     - prompt.d
 
 - name: install ~/.bashrc.d/**

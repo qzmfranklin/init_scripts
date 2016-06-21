@@ -1,6 +1,7 @@
 ---
 
 - name: install gvim
+  become: yes
   become_user: root
   apt:
     pkg=vim-gnome

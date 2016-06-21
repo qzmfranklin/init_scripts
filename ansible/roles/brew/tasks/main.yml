@@ -4,6 +4,10 @@
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   ignore_errors: yes
 
+- name: update homebrew and upgrade packages
+  shell: brew update && brew upgrade
+  when: ansible_os_family == "Darwin"
+
 - name: homebrew install standard packages
   homebrew: name={{ item }} state=present
   with_items:
