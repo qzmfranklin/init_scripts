@@ -1,8 +1,14 @@
-[ ! -d ~/.bashrc.d ] || exit 1
-(
-    find ~/.bashrc.d/alias.d -type f -name '*.sh' | xargs source
-    find ~/.bashrc.d/completion.d -type f -name '*.bash' | xargs source
-    find ~/.bashrc.d/env.d -type f -name '*.sh' | xargs source
-    find ~/.bashrc.d/function.d -type f -name '*.sh' | xargs source
+source_dir ()
+{
+    for FILE in ~/.bashrc.d/$1/$2; do
+        source $FILE
+    done
+}
+
+if [ -d ~/.bashrc.d ]; then
+    source_dir alias.d '*.sh'
+    source_dir completion.d '*.bash'
+    source_dir env.d '*.sh'
+    source_dir function.d '*.sh'
     [ -f ~/.bashrc.d/prompt.d/main.sh ] && source ~/.bashrc.d/prompt.d/main.sh
-) &> /dev/null
+fi

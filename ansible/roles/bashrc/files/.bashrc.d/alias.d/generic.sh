@@ -4,6 +4,7 @@ case `uname` in
         alias sb="source ~/.bash_profile"
         ;;
     "Linux"*)
+	echo Linux
         alias eb="gvim ~/.bashrc"
         alias sb="source ~/.bashrc"
         ;;

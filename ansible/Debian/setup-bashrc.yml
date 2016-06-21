@@ -1,11 +1,19 @@
 ---
 
+- name: touch ~/.bash_profile
+  file: >
+    path="{{ lookup('env','HOME') }}/{{ item }}"
+    state=touch
+  with_items:
+    - .bashrc
+    - .bash_profile
+
 - name: ~/.bash_profile sources ~/.bashrc
   lineinfile: >
     dest="{{ lookup('env','HOME') }}/.bash_profile"
-    line="[ -f ~/.bashrc ] && ~/.bashrc"
+    line="[ -f ~/.bashrc ] && . ~/.bashrc"
 
 - name: ~/.bashrc sources ~/.bashrc_main
   lineinfile: >
     dest="{{ lookup('env','HOME') }}/.bashrc"
-    line="[ -f ~/.bashrc_main ] && ~/.bashrc_main"
+    line="[ -f ~/.bashrc_main ] && . ~/.bashrc_main"

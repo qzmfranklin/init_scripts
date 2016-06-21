@@ -20,6 +20,11 @@
     dest="{{ lookup('env','HOME') }}/"
     recursive=yes
 
+- name: install ~/.bashrc_main
+  copy: >
+    src=bashrc_main
+    dest="{{ lookup('env','HOME') }}/.bashrc_main"
+
 - include: Darwin/setup-bashrc.yml
   when: ansible_os_family == "Darwin"
 
