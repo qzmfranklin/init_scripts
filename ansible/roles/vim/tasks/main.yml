@@ -1,18 +1,10 @@
 ---
 
-- name: (Darwin only) install macvim with python3 and lua support
-  homebrew: >
-    name=macvim
-    state=present
-    install_options="--with-python3 --with-lua"
+
+- include: Darwin/install-vim.yml
   when: ansible_os_family == "Darwin"
 
-- name: (Debian only) install gvim
-  become_user: root
-  apt:
-    pkg=vim-gnome
-    state=latest
-    update_cache=yes
+- include: Darwin/install-vim.yml
   when: ansible_os_family == "Debian"
 
 - name: install pathogen

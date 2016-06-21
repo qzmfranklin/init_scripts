@@ -1,0 +1,13 @@
+---
+
+- name: ~/.bash_profile sources ~/.bashrc
+  lineinfile: >
+    dest="{{ lookup('env','HOME') }}/.bash_profile"
+    line="[ -f ~/.bashrc ] && ~/.bashrc"
+  when: ansible_os_family == "Debian"
+
+- name: ~/.bashrc sources ~/.bashrc_main
+  lineinfile: >
+    dest="{{ lookup('env','HOME') }}/.bashrc"
+    line="[ -f ~/.bashrc_main ] && ~/.bashrc_main"
+  when: ansible_os_family == "Debian"

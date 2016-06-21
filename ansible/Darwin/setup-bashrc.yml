@@ -1,0 +1,7 @@
+---
+
+- name: ~/.bash_profile sources ~/.bashrc_main
+  lineinfile: >
+    dest="{{ lookup('env','HOME') }}/.bash_profile"
+    line="[ -f ~/.bashrc_main ] && ~/.bashrc_main"
+  when: ansible_os_family == "Darwin"

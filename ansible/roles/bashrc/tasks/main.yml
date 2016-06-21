@@ -1,6 +1,9 @@
 ---
 
-- name: mkdir -p ~/.bashrc.d/completion.d
+- name: print ansible_os_family
+  debug: msg="{{ ansible_os_family }}"
+
+- name: mkdir ~/.bashrc.d
   file: >
     path="{{ lookup('env','HOME') }}/.bashrc.d/{{ item }}"
     state=directory
@@ -9,29 +12,14 @@
     - completion.d
     - prompt.d
 
-- name: print ansible_os_family
-  debug: msg="{{ ansible_os_family }}"
+- name: install ~/.bashrc.d/**
+  synchronize: >
+    src=.bashrc.d
+    dest="{{ lookup('env','HOME') }}/"
+    recursive=yes
 
-#- name: install ~/.bashrc.d/**
-  #synchronize: >
-    #src=.bashrc.d
-    #dest="{{ lookup('env','HOME') }}/"
-    #recursive=yes
-
-- name: (Darwin only) ~/.bash_profile sources ~/.bashrc_main
-  lineinfile: >
-    dest="{{ lookup('env','HOME') }}/.bash_profile"
-    line="[ -f ~/.bashrc_main ] && ~/.bashrc_main"
+- include: Darwin/setup-bashrc.yml
   when: ansible_os_family == "Darwin"
 
-- name: (Debian only) ~/.bash_profile sources ~/.bashrc
-  lineinfile: >
-    dest="{{ lookup('env','HOME') }}/.bash_profile"
-    line="[ -f ~/.bashrc ] && ~/.bashrc"
-  when: ansible_os_family == "Debian"
-
-- name: (Debian only) ~/.bashrc sources ~/.bashrc_main
-  lineinfile: >
-    dest="{{ lookup('env','HOME') }}/.bashrc"
-    line="[ -f ~/.bashrc_main ] && ~/.bashrc_main"
+- include: Debian/setup-bashrc.yml
   when: ansible_os_family == "Debian"

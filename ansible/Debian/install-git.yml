@@ -1,0 +1,5 @@
+---
+
+- name: install git with apt-get
+  become_user: root
+  apt: pkg=git state=latest update_cache=yes

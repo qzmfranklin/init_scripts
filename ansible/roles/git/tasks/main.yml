@@ -3,17 +3,17 @@
 - name: (Darwin only) update homebrew and upgrade packages
   shell: brew update && brew upgrade
   when: ansible_os_family == "Darwin"
+  ignore_errors: yes
 
-- name: (Darwin only) install {git,wget} with homebrew
-  homebrew: name={{ item }} state=present
+- include: Darwin/install-git.yml
   when: ansible_os_family == "Darwin"
-  with_items:
-    - git
 
-- name: (Debian only) install git with apt-get
-  become_user: root
-  apt: pkg=git state=latest update_cache=yes
+- include: Darwin/install-git.yml
   when: ansible_os_family == "Debian"
+
+- name: (Darwin only) install wget with homebrew
+  homebrew: name=wget state=present
+  when: ansible_os_family == "Darwin"
 
 - name: install ~/.gitconfig
   copy:
