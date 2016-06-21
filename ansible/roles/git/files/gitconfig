@@ -2,7 +2,7 @@
 	email = qzmfranklin@gmail.com
 	name = Zhongming Qu
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.gitignore
 	mergeoptions = --no-edit
 [push]
 	default = simple

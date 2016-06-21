@@ -1,7 +1,7 @@
 source_dir ()
 {
     for FILE in ~/.bashrc.d/$1/$2; do
-        source $FILE
+        . $FILE
     done
 }
 
@@ -10,5 +10,5 @@ if [ -d ~/.bashrc.d ]; then
     source_dir completion.d '*.bash'
     source_dir env.d '*.sh'
     source_dir function.d '*.sh'
-    [ -f ~/.bashrc.d/prompt.d/main.sh ] && source ~/.bashrc.d/prompt.d/main.sh
+    [ -f ~/.bashrc.d/prompt.d/main.sh ] && . ~/.bashrc.d/prompt.d/main.sh
 fi

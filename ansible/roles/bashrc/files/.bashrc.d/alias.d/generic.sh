@@ -1,4 +1,5 @@
-case `uname` in
+os=$(uname)
+case $os in
     "Darwin"*)
         alias eb="mvim ~/.bash_profile"
         alias sb="source ~/.bash_profile"

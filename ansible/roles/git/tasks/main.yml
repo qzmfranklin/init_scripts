@@ -3,7 +3,7 @@
 - include: Darwin/install-git.yml
   when: ansible_os_family == "Darwin"
 
-- include: Darwin/install-git.yml
+- include: Debian/install-git.yml
   when: ansible_os_family == "Debian"
 
 - name: install ~/.gitconfig
@@ -11,15 +11,22 @@
     src=gitconfig
     dest="{{ lookup('env','HOME') }}/.gitconfig"
 
-- name: install ~/.gitignore_global
+- name: install ~/.gitignore
   copy:
-    src=gitignore_global
-    dest="{{ lookup('env','HOME') }}/.gitignore_global"
+    src=gitignore
+    dest="{{ lookup('env','HOME') }}/.gitignore"
 
-- name: download git-completion.bash git-prompt.sh
+- name: download git-completion.bash
   uri:
     url="https://raw.githubusercontent.com/git/git/master/contrib/completion/{{ item.0 }}"
     dest="{{ lookup('env','HOME') }}/.bashrc.d/{{ item.1 }}"
   with_items:
     - [ [ 'git-completion.bash', 'completion.d/git-completion.bash' ] ]
-    - [ [ 'git-prompt.sh', 'prompt.d/git-prompt.sh' ] ]
+
+- name: git clone bash-git-prompt
+  git:
+    repo=https://github.com/magicmonty/bash-git-prompt.git
+    dest="{{ lookup('env','HOME') }}/.bashrc.d/prompt.d/bash-git-prompt"
+    clone=yes
+    update=yes
+    force=yes
