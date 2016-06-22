@@ -1,10 +1,9 @@
 ---
 
-
 - include: Darwin/install-vim.yml
   when: ansible_os_family == "Darwin"
 
-- include: Darwin/install-vim.yml
+- include: Debian/install-vim.yml
   when: ansible_os_family == "Debian"
 
 - name: install pathogen

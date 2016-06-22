@@ -96,9 +96,12 @@ set cursorline
 
 syntax enable
 if has('unix')
-    colorscheme desert
-elseif has('mac')
-    colorscheme smyck
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        colorscheme smyck
+    elseif s:uname == "Linux\n"
+        colorscheme desert
+    endif
 endif
 "set background=light
 
@@ -183,11 +186,14 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 if has('unix')
-    nnoremap <M-[> :tabprevious<cr>
-    nnoremap <M-]> :tabnext<cr>
-elseif has('mac')
-    nnoremap “ :tabprevious<cr>
-    nnoremap ‘ :tabnext<cr>
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        nnoremap “ :tabprevious<cr>
+        nnoremap ‘ :tabnext<cr>
+    elseif s:uname == "Linux\n"
+        nnoremap <M-[> :tabprevious<cr>
+        nnoremap <M-]> :tabnext<cr>
+    endif
 endif
 
 

@@ -3,4 +3,5 @@
   roles:
     - bashrc
     - git
+    - mongo
     - vim

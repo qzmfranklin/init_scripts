@@ -1,0 +1,7 @@
+---
+
+- name: install mongo
+  homebrew: name=mongo state=present
+
+- name: pip3 install pymongo
+  pip: name=pymongo state=latest update=yes executable=pip3
