@@ -1,12 +1,12 @@
 ---
 
 - name: install mongo
+  become: yes
+  become_user: root
   apt: pkg=mongo state=latest update_cache=yes
 
 - name: pip3 install pymongo
-  become: yes
-  become_user: root
-  pip: name=pymongo state=latest update=yes executable=pip3
+  pip: name=pymongo state=present executable=pip3
 
 - name: become unpreveliged user
   become: no

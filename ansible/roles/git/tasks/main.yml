@@ -29,4 +29,3 @@
     dest="{{ lookup('env','HOME') }}/.bashrc.d/prompt.d/bash-git-prompt"
     clone=yes
     update=yes
-    force=yes
