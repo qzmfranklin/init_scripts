@@ -22,3 +22,4 @@ esac
 alias ..="cd .."
 alias up="cd .."
 alias ff="find . -name"
+alias grep="grep --color"
