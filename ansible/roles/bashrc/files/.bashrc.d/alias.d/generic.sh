@@ -14,8 +14,8 @@ case $os in
         alias l="ls -F --color"
         alias ls="ls -aF --color"
         alias ll="ls -alhF --color"
-        alias pbpaste="xclip -selection clipboard"
-        alias pbcopy="xclip -selection clipboard -o"
+        alias pbpaste="xclip -selection clipboard -o"
+        alias pbcopy="xclip -selection clipboard"
         ;;
 esac
 
