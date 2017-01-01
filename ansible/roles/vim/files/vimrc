@@ -9,6 +9,8 @@ au! BufRead,BufNewFile *.qbs set ft=qml
 
 au! BufRead,BufNewFile *.yml set ft=ansible
 
+au! BufRead,BufNewFile *.swift set ft=swift
+
 "Removes trailing whitespaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
