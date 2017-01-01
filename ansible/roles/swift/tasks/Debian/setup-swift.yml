@@ -1,0 +1,28 @@
+---
+
+# As of 0/13/2016, swift released a ubuntu apt repo.
+# This playbook is written per the instructions here:
+#     http://dev.iachieved.it/iachievedit/introducing-swift-3-0
+# TODO: A few tasks could be made more ansible-like.
+
+- name: add the repository key
+  become: yes
+  shell: wget -qO- http://dev.iachieved.it/iachievedit.gpg.key | apt-key add -
+
+- name: add repository to sources.list
+  become: yes
+  shell: echo "deb http://iachievedit-repos.s3.amazonaws.com/ xenial main" | tee --append /etc/apt/sources.list
+
+- name: apt-get update
+  become: yes
+  command: apt-get update
+
+- name: install swift-3.0
+  become: yes
+  apt: pkg=swift-3.0 state=latest
+
+- name: add swift path to bashrc
+  lineinfile:
+    dest: "{{ lookup('env','HOME') }}/.bashrc_main"
+    state: present
+    line: "export PATH=/opt/swift/swift-3.0/usr/bin:$PATH"

@@ -1,0 +1,4 @@
+---
+
+- include: Debian/setup-swift.yml
+  when: ansible_os_family == "Debian"

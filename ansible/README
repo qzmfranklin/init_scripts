@@ -1,0 +1,9 @@
+Prior to running the following commands, you need to install git and ansible
+first.
+
+Provision a vanilla Ubuntu 16.04 machine:
+    ansible-playbook -i 'localhost,' -c local home-ubuntu.yml -K
+    (Will be prompted for the sudo password. That is OK.)
+
+Provision a vanilla MacOSX machine:
+    ansible-playbook -i 'localhost,' -c local homembp.yml
