@@ -4,6 +4,7 @@
   apt: pkg={{ item }} state=latest update_cache=yes
   become: yes
   with_items:
-  - git
-  - python-pip
-  - python3-pip
+    - git
+    - python-pip
+    - python3-pip
+    - twine # for uploading python packages to pypi
