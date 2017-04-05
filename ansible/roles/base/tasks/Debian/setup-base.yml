@@ -8,3 +8,4 @@
     - python-pip
     - python3-pip
     - twine # for uploading python packages to pypi
+    - ctags

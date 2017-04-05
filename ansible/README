@@ -1,6 +1,12 @@
 Prior to running the following commands, you need to install git and ansible
 first.
 
+On Ubuntu 16.04:
+    sudo apt-get install git ansible
+
+On MacOSX:
+    brew install git ansible
+
 Provision a vanilla Ubuntu 16.04 machine:
     ansible-playbook -i 'localhost,' -c local home-ubuntu.yml -K
     (Will be prompted for the sudo password. That is OK.)
