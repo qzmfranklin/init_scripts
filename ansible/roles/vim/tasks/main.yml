@@ -1,10 +1,6 @@
 ---
 
-- include: Darwin/install-vim.yml
-  when: ansible_os_family == "Darwin"
-
-- include: Debian/install-vim.yml
-  when: ansible_os_family == "Debian"
+- include: "{{ ansible_os_family }}.yml"
 
 # The following two tasks are just a transcription of the command below:
 #   mkdir -p ~/.vim/autoload ~/.vim/bundle &&

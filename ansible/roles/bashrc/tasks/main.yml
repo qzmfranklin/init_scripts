@@ -1,8 +1,5 @@
 ---
 
-- name: print ansible_os_family
-  debug: msg="{{ ansible_os_family }}"
-
 - name: mkdir ~/.bashrc.d
   file: >
     path="{{ lookup('env','HOME') }}/.bashrc.d/{{ item }}"
@@ -25,8 +22,4 @@
     src=bashrc_main
     dest="{{ lookup('env','HOME') }}/.bashrc_main"
 
-- include: Darwin/setup-bashrc.yml
-  when: ansible_os_family == "Darwin"
-
-- include: Debian/setup-bashrc.yml
-  when: ansible_os_family == "Debian"
+- include: "{{ ansible_os_family }}.yml"

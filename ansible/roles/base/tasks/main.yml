@@ -1,6 +1,3 @@
 ---
 
-# Install packages and tools required for installing other packages and tools.
-
-- include: Debian/setup-base.yml
-  when: ansible_os_family == "Debian"
+- include: "{{ ansible_os_family }}.yml"
