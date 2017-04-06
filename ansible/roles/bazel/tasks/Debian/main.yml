@@ -1,0 +1,24 @@
+---
+
+- name: add gpg key
+  become: yes
+  apt_key:
+    url: https://bazel.build/bazel-release.pub.gpg
+    state: present
+
+- name: add apt-repo
+  become: yes
+  apt_repository:
+    repo: deb http://storage.googleapis.com/bazel-apt stable jdk1.8
+    state: present
+
+- name: apt-get update
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: install bazel
+  become: yes
+  apt:
+    pkg: bazel
+    state: latest
