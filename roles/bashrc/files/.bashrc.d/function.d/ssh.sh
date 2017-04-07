@@ -68,11 +68,11 @@ start-ssh-agent() {
         # And if we haven't found a working one, start a new one.
         #
         #Create a new ssh-agent
-        sshfile=~/\.ssh_agent_`hostname`_`whoami`
+        sshfile=~/\.ssh_agent_info
         echo "Creating new SSH agent."
         ssh-agent -s > $sshfile && . $sshfile
         # Other users must not use or tamper with the $sshfile.
-        chmod 700 $sshfile
+        chmod 600 $sshfile
         unset sshfile
     fi
 }

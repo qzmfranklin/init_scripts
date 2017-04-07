@@ -12,3 +12,5 @@ if [ -d ~/.bashrc.d ]; then
     source_dir function.d '*.sh'
     [ -f ~/.bashrc.d/prompt.d/main.sh ] && . ~/.bashrc.d/prompt.d/main.sh
 fi
+
+start-ssh-agent
