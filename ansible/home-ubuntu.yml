@@ -3,6 +3,7 @@
   roles:
     - base
     - bashrc
+    - developer-tools
     - git
     - swift
     - vim

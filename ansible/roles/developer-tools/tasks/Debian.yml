@@ -1,0 +1,9 @@
+---
+
+- name: install common developer tools
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - cscope
+    - tree
