@@ -1,9 +1,0 @@
-alias ee="gvim ~/bash_ubuntu"
-alias ee="gvim ~/.bash_ubuntu"
-alias ss="source ~/.bash_ubuntu"
-
-alias ..="cd .."
-
-if [ -f /opt/intel/mkl/bin/mklvars.sh ]; then
-	. /opt/intel/mkl/bin/mklvars.sh intel64
-fi

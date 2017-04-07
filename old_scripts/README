@@ -1,6 +1,0 @@
-install_Linux.sh for Ubuntu14.04LTS
-install_Darwin.sh for MacOSX (Yosimite and above)
-
-TODO:
-    It is starting to get messy at this point. Might be a good idea to refactor
-    sometime soon.
