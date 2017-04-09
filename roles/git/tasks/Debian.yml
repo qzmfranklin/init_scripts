@@ -3,7 +3,10 @@
 - name: install git with apt-get
   become: yes
   become_user: root
-  apt: pkg=git state=latest update_cache=yes
+  apt: pkg="{{ item }}" state=latest update_cache=yes
+  with_item:
+    - git
+    - git-svn
 
 - name: become unpreveliged user
   become: no

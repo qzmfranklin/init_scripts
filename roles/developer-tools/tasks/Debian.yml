@@ -1,6 +1,7 @@
 ---
 
 - name: install common developer tools
+  become: yes
   apt:
     pkg: "{{ item }}"
     state: latest

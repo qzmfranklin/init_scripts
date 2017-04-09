@@ -1,5 +1,9 @@
 ---
 
+- name: dpkg remove i386
+  become: yes
+  command: dpkg --remove-architecture i386
+
 - name: install packages
   apt: pkg={{ item }} state=latest update_cache=yes
   become: yes
@@ -9,3 +13,4 @@
     - python3-pip
     - twine # for uploading python packages to pypi
     - ctags
+    - ssh
