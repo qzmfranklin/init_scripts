@@ -7,4 +7,21 @@
     state: latest
   with_items:
     - cscope
+    - ctags
+    - libvirt-bin
+    - mongodb
+    - python3-libvirt
+    - python3-paramiko
+    - qemu-system-x86
     - tree
+    - twine # for uploading python packages to pypi
+    - virt-manager
+
+- name: pip3 install
+  become: yes
+  pip:
+    name: "{{ item }}"
+    state: latest
+    executable: pip3
+  with_items:
+    - pymongo
