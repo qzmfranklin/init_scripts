@@ -1,7 +1,3 @@
 ---
 
-- include: Darwin/install-mongo.yml
-  when: ansible_os_family == "Darwin"
-
-- include: Debian/install-mongo.yml
-  when: ansible_os_family == "Debian"
+- include: "{{ ansible_os_family }}.yml"
