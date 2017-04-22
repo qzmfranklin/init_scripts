@@ -8,10 +8,12 @@
   with_items:
     - cscope
     - ctags
+    - libguestfs-tools
     - libvirt-bin
     - mongodb
     - python3-libvirt
     - python3-paramiko
+    - python3-yaml
     - qemu-system-x86
     - tree
     - twine # for uploading python packages to pypi
@@ -25,3 +27,11 @@
     executable: pip3
   with_items:
     - pymongo
+
+# This task will take effect after a reboot.
+- name: add current user to group libvirtd
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: libvirtd
+    append: yes
