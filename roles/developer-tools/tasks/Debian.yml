@@ -53,6 +53,7 @@
     regexp: "^dynamic_ownership(?! = 0)"
     line: "dynamic_ownership = 0"
     state: present
+    backrefs: yes # if no match, do not change the file
   notify: restart-libvirt
 
 - name: flush_handlers
