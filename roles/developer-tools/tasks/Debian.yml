@@ -8,13 +8,18 @@
   with_items:
     - cscope
     - ctags
+    - htop
+    - iftop
+    - syslinux-utils # for isohybrid
     - libguestfs-tools
     - libvirt-bin
+    - mdadm
     - mongodb
     - python3-libvirt
     - python3-paramiko
     - python3-yaml
     - qemu-system-x86
+    - smartmontools
     - tree
     - twine # for uploading python packages to pypi
     - virt-manager
@@ -35,3 +40,20 @@
     name: "{{ ansible_user_id }}"
     groups: libvirtd
     append: yes
+
+# The libvirt has a feature called dynamic_ownership that causes libvirtd to
+# change the ownership of disk images to root:root every time the containing
+# libvirt domain is started.  That conflicts with the use model where non-root
+# users can freely use libvirt domains.  As a result, turn dynamic_ownership off
+# here.
+- name: disable dynamic_ownership for libvirt
+  become: yes
+  lineinfile:
+    dest: /etc/libvirt/qemu.conf
+    regexp: "^dynamic_ownership(?! = 0)"
+    line: "dynamic_ownership = 0"
+    state: present
+  notify: restart-libvirt
+
+- name: flush_handlers
+  meta: flush_handlers
