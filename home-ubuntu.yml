@@ -2,6 +2,6 @@
 - hosts: all
   roles:
     - bashrc
-    - developer-tools
+    - debian-packages
     - git
     - vim

@@ -18,9 +18,11 @@
     - cscope
     - ctags
     - debconf-utils
+    - genisoimage
     - git
     - htop
     - iftop
+    - iotop
     - syslinux-utils # for isohybrid
     - libguestfs-tools
     - libvirt-bin
@@ -33,6 +35,7 @@
     - python3-yaml
     - qemu-system-x86
     - smartmontools
+    - squashfs-tools
     - ssh
     - tree
     - twine # for uploading python packages to pypi
@@ -94,6 +97,17 @@
     repo: deb http://storage.googleapis.com/bazel-apt stable jdk1.8
     state: present
 
+- name: add gpg key for docker
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+- name: add apt-repo for docker
+  become: yes
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
 - name: apt-get update
   become: yes
   apt:
@@ -107,6 +121,14 @@
   with_items:
     - bazel
     - swift-3.0
+    - docker-ce
+
+- name: add the current running user to the docker group
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
 
 - name: add swift path to bashrc
   lineinfile:
