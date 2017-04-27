@@ -1,8 +1,0 @@
----
-
-- name: install mongo
-  homebrew: name=mongo state=present
-
-# This is failing yet. No idea why.
-#- name: pip3 install pymongo
-  #pip: name=pymongo state=latest executable=pip3

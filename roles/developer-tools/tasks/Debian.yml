@@ -1,5 +1,14 @@
 ---
 
+- name: dpkg remove i386
+  become: yes
+  command: dpkg --remove-architecture i386
+
+- name: update apt-cache
+  become: yes
+  apt:
+    update_cache: yes
+
 - name: install common developer tools
   become: yes
   apt:
@@ -8,6 +17,8 @@
   with_items:
     - cscope
     - ctags
+    - debconf-utils
+    - git
     - htop
     - iftop
     - syslinux-utils # for isohybrid
@@ -15,16 +26,19 @@
     - libvirt-bin
     - mdadm
     - mongodb
+    - python-pip
+    - python3-pip
     - python3-libvirt
     - python3-paramiko
     - python3-yaml
     - qemu-system-x86
     - smartmontools
+    - ssh
     - tree
     - twine # for uploading python packages to pypi
     - virt-manager
 
-- name: pip3 install
+- name: install python3 packages that are only available via pip
   become: yes
   pip:
     name: "{{ item }}"
@@ -55,6 +69,50 @@
     state: present
     backrefs: yes # if no match, do not change the file
   notify: restart-libvirt
+
+# TODO: For some unknown reason, the with_items stanza does not work with
+# the apt_key and apt_repository modules.  Had to split them for now.
+- name: add gpg key for swift
+  become: yes
+  apt_key:
+    url: http://dev.iachieved.it/iachievedit.gpg.key
+    state: present
+- name: add apt-repo for swift
+  become: yes
+  apt_repository:
+    repo: "deb http://iachievedit-repos.s3.amazonaws.com/ {{ ansible_distribution_release }} main"
+    state: present
+
+- name: add gpg key for bazel
+  become: yes
+  apt_key:
+    url: https://bazel.build/bazel-release.pub.gpg
+    state: present
+- name: add apt-repo for bazel
+  become: yes
+  apt_repository:
+    repo: deb http://storage.googleapis.com/bazel-apt stable jdk1.8
+    state: present
+
+- name: apt-get update
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: install various packages that are only available from third party apt repos
+  become: yes
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - bazel
+    - swift-3.0
+
+- name: add swift path to bashrc
+  lineinfile:
+    dest: "{{ lookup('env','HOME') }}/.bashrc_main"
+    state: present
+    line: "export PATH=/opt/swift/swift-3.0/usr/bin:$PATH"
 
 - name: flush_handlers
   meta: flush_handlers
