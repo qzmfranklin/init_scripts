@@ -1,20 +1,71 @@
 ---
 
-- name: apt install dhcp and tftp
+# This role followed the directions from the following Ubuntu page:
+#     https://help.ubuntu.com/community/DisklessUbuntuHowto
+
+- name: apt install packages used for pxe
+  become: yes
   apt:
     pkg: "{{ item }}"
     state: latest
   with_items:
+    - initramfs-tools
     - isc-dhcp-server
+    - nfs-kernel-server
+    - pxelinux
+    - syslinux
     - tftpd-hpa
   notify:
     - restart-dhcp
     - restart-tftp
 
-- name: make /var/lib/tftpboot owned by root:engineering and set its setuid bit
+- name: setup /var/lib/tftpboot
   become: yes
   file:
     path: /var/lib/tftpboot
     owner: root
     group: engineering
-    mode: 04775
+    mode: 03775
+
+- name: install /etc/dhcp/dhcpd.conf
+  become: yes
+  copy:
+    src: dhcpd.conf
+    dest: /etc/dhcp/dhcpd.conf
+
+- name: mkdir -p /var/lib/tftpboot/boot
+  #become: yes
+  file:
+    path: "/var/lib/tftpboot/{{ item }}"
+    state: directory
+    #owner: root
+    #group: engineering
+    mode: 04755
+  with_items:
+    - boot
+    - pxelinux.cfg
+
+- name: add /var/lib/tftpboot/pxelinux.cfg/default
+  copy:
+    src: pxelinux.cfg-default
+    dest: /var/lib/tftpboot/pxelinux.cfg/default
+
+# TODO: local connection + sudo + loop produces error due to the following bug:
+#       https://github.com/ansible/ansible/issues/13728
+# After upgrading to a version of ansible that fixed that issue, we should
+# uncomment the 'owner' and 'group' attributes.
+- name: symlink boot binaries
+  #become: yes
+  file:
+    src: "{{ item.key }}"
+    dest: "{{ item.value }}"
+    #owner: root
+    #group: engineering
+    state: link
+  with_dict:
+    /usr/lib/PXELINUX/pxelinux.0: /var/lib/tftpboot/pxelinux.0
+    /usr/lib/syslinux/memdisk: /var/lib/tftpboot/boot/memdisk
+    /usr/lib/syslinux/modules/bios: /var/lib/tftpboot/boot/isolinux
+
+- name: flush_handlers
+  meta: flush_handlers

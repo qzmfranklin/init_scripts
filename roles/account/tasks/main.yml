@@ -13,3 +13,12 @@
     name: "{{ ansible_user_id }}"
     groups: engineering
     append: yes
+
+# A dummy user here is useful for testing the sticky bit and setguid bit.
+- name: add user dummy for testing
+  become: yes
+  user:
+    name: dummy
+    uid: 501
+    groups: engineering
+    append: yes
