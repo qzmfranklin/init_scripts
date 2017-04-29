@@ -1,0 +1,13 @@
+---
+
+- name: restart-dhcp
+  become: yes
+  service: name=isc-dhcp-server enabled=yes state=restarted
+
+- name: restart-libvirt
+  become: yes
+  service: name=libvirt-bin enabled=yes state=restarted
+
+- name: restart-tftp
+  become: yes
+  service: name=tftpd-hpa enabled=yes state=restarted

@@ -1,0 +1,15 @@
+---
+
+- name: add group engineering
+  become: yes
+  group:
+    name: engineering
+    gid: 500
+    system: yes
+
+- name: add the current user to the engineering group
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: engineering
+    append: yes

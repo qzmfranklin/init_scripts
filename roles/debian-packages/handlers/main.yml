@@ -1,5 +1,0 @@
----
-
-- name: restart-libvirt
-  become: yes
-  service: name=libvirt-bin state=restarted

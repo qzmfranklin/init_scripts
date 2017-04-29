@@ -1,7 +1,10 @@
 ---
 - hosts: all
+  handlers:
+    - include: handlers.yml
   roles:
     - bashrc
     - debian-packages
     - git
     - vim
+    - pxe

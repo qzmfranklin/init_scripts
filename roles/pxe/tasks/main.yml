@@ -1,0 +1,20 @@
+---
+
+- name: apt install dhcp and tftp
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - isc-dhcp-server
+    - tftpd-hpa
+  notify:
+    - restart-dhcp
+    - restart-tftp
+
+- name: make /var/lib/tftpboot owned by root:engineering and set its setuid bit
+  become: yes
+  file:
+    path: /var/lib/tftpboot
+    owner: root
+    group: engineering
+    mode: 04775
