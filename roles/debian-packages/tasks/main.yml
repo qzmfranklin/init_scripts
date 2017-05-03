@@ -108,6 +108,14 @@
     repo: "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     state: present
 
+# This ansible thing is a chicken before an egg.  There is a separate bash
+# script for installing the proper ansible.  This is just a formality to confirm
+# that the version in use is good.
+- name: add apt-repo for ansible
+  apt_repository:
+    repo: ppa:ansible/ansible
+    state: present
+
 - name: apt-get update
   become: yes
   apt:
@@ -119,6 +127,7 @@
     pkg: "{{ item }}"
     state: latest
   with_items:
+    - ansible
     - bazel
     - swift-3.0
     - docker-ce

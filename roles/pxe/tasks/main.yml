@@ -34,12 +34,12 @@
     dest: /etc/dhcp/dhcpd.conf
 
 - name: mkdir -p /var/lib/tftpboot/boot
-  #become: yes
+  become: yes
   file:
     path: "/var/lib/tftpboot/{{ item }}"
     state: directory
-    #owner: root
-    #group: engineering
+    owner: root
+    group: root
     mode: 04755
   with_items:
     - boot
@@ -50,17 +50,13 @@
     src: pxelinux.cfg-default
     dest: /var/lib/tftpboot/pxelinux.cfg/default
 
-# TODO: local connection + sudo + loop produces error due to the following bug:
-#       https://github.com/ansible/ansible/issues/13728
-# After upgrading to a version of ansible that fixed that issue, we should
-# uncomment the 'owner' and 'group' attributes.
 - name: symlink boot binaries
-  #become: yes
+  become: yes
   file:
     src: "{{ item.key }}"
     dest: "{{ item.value }}"
-    #owner: root
-    #group: engineering
+    owner: root
+    group: root
     state: link
   with_dict:
     /usr/lib/PXELINUX/pxelinux.0: /var/lib/tftpboot/pxelinux.0

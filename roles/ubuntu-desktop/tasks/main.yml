@@ -9,25 +9,16 @@
     - gnome-shell
     - ubuntu-gnome-desktop
 
-# There is an annoying bug in ansible that prevents with_items from being used
-# for provisioning local machines.
 - name: use lightdm as the graphical windows manager
   become: yes
   debconf:
-    name: gdm3
+    name: "{{ item }}"
     question: shared/default-x-display-manager
     value: lightdm
     vtype: select
-  notify:
-    - restart-lightdm
-
-- name: use lightdm as the graphical windows manager
-  become: yes
-  debconf:
-    name: lightdm
-    question: shared/default-x-display-manager
-    value: lightdm
-    vtype: select
+  with_items:
+    - gdm3
+    - lightdm
   notify:
     - restart-lightdm
 
