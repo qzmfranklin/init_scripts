@@ -5,4 +5,3 @@
     name=macvim
     state=present
     install_options="--with-python3 --with-lua"
-  when: ansible_os_family == "Darwin"

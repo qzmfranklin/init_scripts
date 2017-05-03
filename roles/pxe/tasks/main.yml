@@ -46,8 +46,9 @@
     - pxelinux.cfg
 
 - name: add /var/lib/tftpboot/pxelinux.cfg/default
+  become: yes
   copy:
-    src: pxelinux.cfg-default
+    src: pxelinux.cfg.default
     dest: /var/lib/tftpboot/pxelinux.cfg/default
 
 - name: symlink boot binaries

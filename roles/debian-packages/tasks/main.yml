@@ -73,48 +73,26 @@
     backrefs: yes # if no match, do not change the file
   notify: restart-libvirt
 
-# TODO: For some unknown reason, the with_items stanza does not work with
-# the apt_key and apt_repository modules.  Had to split them for now.
-- name: add gpg key for swift
+- name: add gpg key for third party apt-repos
   become: yes
   apt_key:
-    url: http://dev.iachieved.it/iachievedit.gpg.key
+    url: "{{ item }}"
     state: present
-- name: add apt-repo for swift
-  become: yes
-  apt_repository:
-    repo: "deb http://iachievedit-repos.s3.amazonaws.com/ {{ ansible_distribution_release }} main"
-    state: present
+  with_items:
+    - http://dev.iachieved.it/iachievedit.gpg.key
+    - https://bazel.build/bazel-release.pub.gpg
+    - https://download.docker.com/linux/ubuntu/gpg
 
-- name: add gpg key for bazel
-  become: yes
-  apt_key:
-    url: https://bazel.build/bazel-release.pub.gpg
-    state: present
-- name: add apt-repo for bazel
+- name: add third party apt-repos
   become: yes
   apt_repository:
-    repo: deb http://storage.googleapis.com/bazel-apt stable jdk1.8
+    repo: "{{ item }}"
     state: present
-
-- name: add gpg key for docker
-  become: yes
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
-- name: add apt-repo for docker
-  become: yes
-  apt_repository:
-    repo: "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-    state: present
-
-# This ansible thing is a chicken before an egg.  There is a separate bash
-# script for installing the proper ansible.  This is just a formality to confirm
-# that the version in use is good.
-- name: add apt-repo for ansible
-  apt_repository:
-    repo: ppa:ansible/ansible
-    state: present
+  with_items:
+    - "deb http://iachievedit-repos.s3.amazonaws.com/ {{ ansible_distribution_release }} main"
+    - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
+    - ppa:ansible/ansible
 
 - name: apt-get update
   become: yes

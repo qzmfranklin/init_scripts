@@ -2,9 +2,7 @@
 
 - name: install gvim
   become: yes
-  become_user: root
   apt:
     pkg=vim-gnome
     state=latest
     update_cache=yes
-  when: ansible_os_family == "Debian"

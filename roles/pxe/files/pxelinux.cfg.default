@@ -1,4 +1,4 @@
 label default linux
-kernel vmlinuz
-ipappend 2
-append initrd=initrd.gz
+    kernel vmlinuz
+    ipappend 2
+    append initrd=initrd.gz
