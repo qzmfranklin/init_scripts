@@ -1,0 +1,46 @@
+---
+
+- name: install gnome
+  become: yes
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - gnome-shell
+    - ubuntu-gnome-desktop
+
+# There is an annoying bug in ansible that prevents with_items from being used
+# for provisioning local machines.
+- name: use lightdm as the graphical windows manager
+  become: yes
+  debconf:
+    name: gdm3
+    question: shared/default-x-display-manager
+    value: lightdm
+    vtype: select
+  notify:
+    - restart-lightdm
+
+- name: use lightdm as the graphical windows manager
+  become: yes
+  debconf:
+    name: lightdm
+    question: shared/default-x-display-manager
+    value: lightdm
+    vtype: select
+  notify:
+    - restart-lightdm
+
+- name: customize greeter ui
+  become: yes
+  copy:
+    src: 50-ubuntu.conf
+    dest: /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart-lightdm
+
+- name: flush_handlers
+  meta: flush_handlers

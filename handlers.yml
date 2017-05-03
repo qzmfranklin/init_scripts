@@ -11,3 +11,7 @@
 - name: restart-tftp
   become: yes
   service: name=tftpd-hpa enabled=yes state=restarted
+
+- name: restart-lightdm
+  become: yes
+  service: name=lightdm enabled=yes state=restarted
