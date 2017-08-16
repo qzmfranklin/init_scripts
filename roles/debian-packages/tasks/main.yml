@@ -51,12 +51,12 @@
     - pymongo
 
 # This task will take effect after a reboot.
-- name: add current user to group libvirtd
-  become: yes
-  user:
-    name: "{{ ansible_user_id }}"
-    groups: libvirtd
-    append: yes
+# - name: add current user to group libvirtd
+  #become: yes
+  #user:
+  #  name: "{{ ansible_user_id }}"
+  #  groups: libvirtd
+  #  append: yes
 
 # The libvirt has a feature called dynamic_ownership that causes libvirtd to
 # change the ownership of disk images to root:root every time the containing
@@ -79,9 +79,9 @@
     url: "{{ item }}"
     state: present
   with_items:
-    - http://dev.iachieved.it/iachievedit.gpg.key
+#    - http://dev.iachieved.it/iachievedit.gpg.key
     - https://bazel.build/bazel-release.pub.gpg
-    - https://download.docker.com/linux/ubuntu/gpg
+    #- https://download.docker.com/linux/ubuntu/gpg
 
 - name: add third party apt-repos
   become: yes
@@ -89,8 +89,8 @@
     repo: "{{ item }}"
     state: present
   with_items:
-    - "deb http://iachievedit-repos.s3.amazonaws.com/ {{ ansible_distribution_release }} main"
-    - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    #- "deb http://iachievedit-repos.s3.amazonaws.com/ {{ ansible_distribution_release }} main"
+    #- "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
     - ppa:ansible/ansible
 
@@ -107,15 +107,9 @@
   with_items:
     - ansible
     - bazel
-    - swift-3.0
-    - docker-ce
+    #- swift-3.0
+    #- docker-ce
 
-- name: add the current running user to the docker group
-  become: yes
-  user:
-    name: "{{ ansible_user_id }}"
-    groups: docker
-    append: yes
 
 - name: add swift path to bashrc
   lineinfile:

@@ -5,7 +5,7 @@
   roles:
     - bashrc
     - debian-packages
-    - ubuntu-desktop
+    #- ubuntu-desktop
     - git
     - vim
-    - pxe
+    #- pxe
