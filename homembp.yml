@@ -3,5 +3,5 @@
   roles:
     - bashrc
     - git
-    - mongo
     - vim
+    - gcloud

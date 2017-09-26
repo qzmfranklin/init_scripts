@@ -44,7 +44,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 filetype plugin on
 filetype indent on
 syntax on
-set number
+set number relativenumber
 set foldmethod=syntax
 set history=1989
 set autoread
