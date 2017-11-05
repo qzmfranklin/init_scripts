@@ -8,7 +8,6 @@ case $os in
         alias ll="ls -alGhF"
         ;;
     "Linux"*)
-	echo Linux
         alias eb="gvim ~/.bashrc"
         alias sb="source ~/.bashrc"
         alias l="ls -F --color"

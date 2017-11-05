@@ -18,7 +18,7 @@
     - cscope
     - ctags
     - debconf-utils
-    - docker
+    - docker.io
     - genisoimage
     - git
     - htop
@@ -42,6 +42,14 @@
     - twine # for uploading python packages to pypi
     - virt-manager
 
+# This task will take effect after a reboot.
+- name: add current user to group docker
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+
 - name: install python3 packages that are only available via pip
   become: yes
   pip:
@@ -50,14 +58,6 @@
     executable: pip3
   with_items:
     - pymongo
-
-# This task will take effect after a reboot.
- - name: add current user to group libvirtd
-  become: yes
-  user:
-    name: "{{ ansible_user_id }}"
-    groups: docker
-    append: yes
 
 # The libvirt has a feature called dynamic_ownership that causes libvirtd to
 # change the ownership of disk images to root:root every time the containing
@@ -80,8 +80,8 @@
     url: "{{ item }}"
     state: present
   with_items:
-#    - http://dev.iachieved.it/iachievedit.gpg.key
     - https://bazel.build/bazel-release.pub.gpg
+    - https://packages.cloud.google.com/apt/doc/apt-key.gpg
 
 - name: add third party apt-repos
   become: yes
@@ -89,9 +89,8 @@
     repo: "{{ item }}"
     state: present
   with_items:
-    #- "deb http://iachievedit-repos.s3.amazonaws.com/ {{ ansible_distribution_release }} main"
     - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
-    - ppa:ansible/ansible
+    - "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
 
 - name: apt-get update
   become: yes
@@ -104,16 +103,9 @@
     pkg: "{{ item }}"
     state: latest
   with_items:
-    - ansible
+    - openjdk-8-jdk
     - bazel
-    #- swift-3.0
-
-
-#- name: add swift path to bashrc
-  #lineinfile:
-    #dest: "{{ lookup('env','HOME') }}/.bashrc_main"
-    #state: present
-    #line: "export PATH=/opt/swift/swift-3.0/usr/bin:$PATH"
+    - google-cloud-sdk
 
 - name: flush_handlers
   meta: flush_handlers
