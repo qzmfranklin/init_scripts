@@ -22,4 +22,4 @@
     src=bashrc_main
     dest="{{ lookup('env','HOME') }}/.bashrc_main"
 
-- include: "{{ ansible_os_family }}.yml"
+- include_tasks: "{{ ansible_os_family }}.yml"

@@ -1,27 +1,39 @@
 ---
 
-- include: "{{ ansible_os_family }}.yml"
+- include_tasks: "{{ ansible_os_family }}.yml"
 
 - name: install ~/.gitconfig
   copy:
     src=gitconfig
-    dest="{{ lookup('env','HOME') }}/.gitconfig"
+    dest="{{ lookup('env', 'HOME') }}/.gitconfig"
 
 - name: install ~/.gitignore
   copy:
     src=gitignore
-    dest="{{ lookup('env','HOME') }}/.gitignore"
+    dest="{{ lookup('env', 'HOME') }}/.gitignore"
 
 - name: download git-completion.bash
   uri:
     url="https://raw.githubusercontent.com/git/git/master/contrib/completion/{{ item.0 }}"
-    dest="{{ lookup('env','HOME') }}/.bashrc.d/{{ item.1 }}"
+    dest="{{ lookup('env', 'HOME') }}/.bashrc.d/{{ item.1 }}"
   with_items:
     - [ [ 'git-completion.bash', 'completion.d/git-completion.bash' ] ]
 
 - name: git clone bash-git-prompt
   git:
     repo=https://github.com/magicmonty/bash-git-prompt.git
-    dest="{{ lookup('env','HOME') }}/.bashrc.d/prompt.d/bash-git-prompt"
+    dest="{{ lookup('env', 'HOME') }}/.bashrc.d/prompt.d/bash-git-prompt"
     clone=yes
     update=yes
+
+- name: git-subrepo
+  git:
+    repo=https://github.com/ingydotnet/git-subrepo
+    dest="{{ lookup('env', 'HOME') }}/git-subrepo"
+    clone=yes
+    update=yes
+
+- name: add git-subrepo to PATH
+  lineinfile:
+    path="{{ lookup('env', 'HOME') }}/.bashrc"
+    line="[ -f ~/git-subrepo.rc ] && source ~/git-subrepo/.rc"

@@ -1,6 +1,6 @@
 ---
 
-- include: "{{ ansible_os_family }}.yml"
+- include_tasks: "{{ ansible_os_family }}.yml"
 
 # The following two tasks are just a transcription of the command below:
 #   mkdir -p ~/.vim/autoload ~/.vim/bundle &&

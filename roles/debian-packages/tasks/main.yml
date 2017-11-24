@@ -82,6 +82,7 @@
   with_items:
     - https://bazel.build/bazel-release.pub.gpg
     - https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    #- http://apt.llvm.org/llvm-snapshot.gpg.key
 
 - name: add third party apt-repos
   become: yes
@@ -91,6 +92,7 @@
   with_items:
     - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
     - "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
+    #- deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main
 
 - name: apt-get update
   become: yes
@@ -106,6 +108,10 @@
     - openjdk-8-jdk
     - bazel
     - google-cloud-sdk
+    #- clang-5.0
+    #- lldb-5.0
+    #- lld-5.0
+
 
 - name: flush_handlers
   meta: flush_handlers

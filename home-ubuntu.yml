@@ -1,7 +1,7 @@
 ---
 - hosts: all
   handlers:
-    - include: handlers.yml
+    - include_tasks: handlers.yml
   roles:
     - bashrc
     - debian-packages
