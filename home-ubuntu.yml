@@ -1,9 +1,10 @@
 ---
 - hosts: all
   handlers:
-    - include_tasks: handlers.yml
+    - import_tasks: handlers.yml
   roles:
     - bashrc
+    - clang
     - debian-packages
     #- ubuntu-desktop
     - git

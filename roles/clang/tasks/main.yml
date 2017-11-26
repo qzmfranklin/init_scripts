@@ -1,0 +1,33 @@
+---
+
+- name: download prebuilt clang tarball
+  get_url:
+    url: http://releases.llvm.org/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.tar.xz
+    dest: /tmp/_ansible_clang.tar.xz
+
+# This may take around 10 minutes.
+- name: extract to a temporary directory
+  unarchive:
+    src: /tmp/_ansible_clang.tar.xz
+    dest: /tmp
+
+- name: create the install directory
+  become: yes
+  file:
+    path: /opt/clang
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: copy to the install directory
+  become: yes
+  synchronize:
+    # Don't remove the trailing slash in src.  Without the trailing slash, you
+    # end up with /opt/clang/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.
+    src: /tmp/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04/
+    dest: /opt/clang/5.0.0
+    delete: yes
+    recursive: yes
+    rsync_opts:
+      - "--owner=root:root"
