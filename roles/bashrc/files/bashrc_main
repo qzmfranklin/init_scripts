@@ -5,6 +5,8 @@ source_dir ()
     done
 }
 
+[ -f ~/.bashrc.d/setup.sh ] && . ~/.bashrc.d/setup.sh
+
 if [ -d ~/.bashrc.d ]; then
     source_dir alias.d '*.sh'
     source_dir completion.d '*.bash'

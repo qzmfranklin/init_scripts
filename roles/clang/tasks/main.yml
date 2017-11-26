@@ -31,3 +31,8 @@
     recursive: yes
     rsync_opts:
       - "--owner=root:root"
+
+# The last component of the clang-5.0.0 setup is in the `bashrc` role.  Under
+# file/.bashrc.d/env.d/path.sh, there are two lines:
+#    prepend_path PATH /opt/clang/5.0.0/bin
+#    prepend_path LD_LIBEARY_PATH /opt/clang/5.0.0/lib
