@@ -9,7 +9,7 @@
   when: ansible_os_family == "Darwin"
 
 - name: homebrew install standard packages
-  homebrew: name={{ item }} state=present
+  homebrew: name="{{ item }}" state=present
   with_items:
     - astyle
     - ctags
@@ -18,3 +18,12 @@
     - python3
     - tree
     - wget
+
+# Ansible does not have very good support for casks and taps yet.  Fine.
+- name: homebrew install from custom taps
+  shell: "{{ item }}"
+  with_items:
+    - brew cask install docker
+    - brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git \
+            && brew install burntsushi/ripgrep/ripgrep-bin
+  ignore_errors: yes
