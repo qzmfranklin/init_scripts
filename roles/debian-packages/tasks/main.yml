@@ -17,8 +17,8 @@
   with_items:
     - cscope
     - ctags
-    - debconf-utils
-    - docker.io
+    #- debconf-utils
+    #- docker.io
     - genisoimage
     - git
     - htop
@@ -28,12 +28,12 @@
     - libguestfs-tools
     - libvirt-bin
     - mdadm
-    - mongodb
+    #- mongodb
     - python-pip
     - python3-pip
-    - python3-libvirt
-    - python3-paramiko
-    - python3-yaml
+    #- python3-libvirt
+    #- python3-paramiko
+    #- python3-yaml
     - qemu-system-x86
     - smartmontools
     - squashfs-tools
@@ -50,14 +50,14 @@
     groups: docker
     append: yes
 
-- name: install python3 packages that are only available via pip
-  become: yes
-  pip:
-    name: "{{ item }}"
-    state: latest
-    executable: pip3
-  with_items:
-    - pymongo
+#- name: install python3 packages that are only available via pip
+  #become: yes
+  #pip:
+    #name: "{{ item }}"
+    #state: latest
+    #executable: pip3
+  #with_items:
+    #- pymongo
 
 # The libvirt has a feature called dynamic_ownership that causes libvirtd to
 # change the ownership of disk images to root:root every time the containing
@@ -82,7 +82,6 @@
   with_items:
     - https://bazel.build/bazel-release.pub.gpg
     - https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    #- http://apt.llvm.org/llvm-snapshot.gpg.key
 
 - name: add third party apt-repos
   become: yes
@@ -92,7 +91,6 @@
   with_items:
     - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
     - "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
-    #- deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main
 
 - name: apt-get update
   become: yes
@@ -108,10 +106,6 @@
     - openjdk-8-jdk
     - bazel
     - google-cloud-sdk
-    #- clang-5.0
-    #- lldb-5.0
-    #- lld-5.0
-
 
 - name: flush_handlers
   meta: flush_handlers

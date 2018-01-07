@@ -6,7 +6,6 @@
     - bashrc
     - clang
     - debian-packages
-    #- ubuntu-desktop
     - git
     - vim
     #- pxe
