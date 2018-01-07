@@ -42,14 +42,6 @@
     - twine # for uploading python packages to pypi
     - virt-manager
 
-# This task will take effect after a reboot.
-- name: add current user to group docker
-  become: yes
-  user:
-    name: "{{ ansible_user_id }}"
-    groups: docker
-    append: yes
-
 #- name: install python3 packages that are only available via pip
   #become: yes
   #pip:
@@ -82,6 +74,7 @@
   with_items:
     - https://bazel.build/bazel-release.pub.gpg
     - https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    - https://download.docker.com/linux/ubuntu/gpg
 
 - name: add third party apt-repos
   become: yes
@@ -91,6 +84,7 @@
   with_items:
     - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
     - "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
+    - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
 
 - name: apt-get update
   become: yes
@@ -106,6 +100,26 @@
     - openjdk-8-jdk
     - bazel
     - google-cloud-sdk
+    - docker-ce
+
+# This task will take effect after a reboot.
+- name: add current user to group docker
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+
+# These dependencies should go away as I clean up the Bazel BUILD files.
+- name: install legacy tools used by Bazel scripts
+  become: yes
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - automake
+    - cmake
+    - libtool
 
 - name: flush_handlers
   meta: flush_handlers
