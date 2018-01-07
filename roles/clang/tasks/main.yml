@@ -2,7 +2,7 @@
 
 - name: download prebuilt clang tarball
   get_url:
-    url: http://releases.llvm.org/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.tar.xz
+    url: http://releases.llvm.org/5.0.1/clang+llvm-5.0.1-linux-x86_64-ubuntu16.04.tar.xz
     dest: /tmp/_ansible_clang.tar.xz
 
 # This may take around 10 minutes.
@@ -24,15 +24,15 @@
   become: yes
   synchronize:
     # Don't remove the trailing slash in src.  Without the trailing slash, you
-    # end up with /opt/clang/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.
-    src: /tmp/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04/
-    dest: /opt/clang/5.0.0
+    # end up with /opt/clang/5.0.1/clang+llvm-5.0.1-linux-x86_64-ubuntu16.04.
+    src: /tmp/clang+llvm-5.0.1-linux-x86_64-ubuntu16.04/
+    dest: /opt/clang/5.0.1
     delete: yes
     recursive: yes
     rsync_opts:
       - "--owner=root:root"
 
-# The last component of the clang-5.0.0 setup is in the `bashrc` role.  Under
+# The last component of the clang-5.0.1 setup is in the `bashrc` role.  Under
 # file/.bashrc.d/env.d/path.sh, there are two lines:
-#    prepend_path PATH /opt/clang/5.0.0/bin
-#    prepend_path LD_LIBEARY_PATH /opt/clang/5.0.0/lib
+#    prepend_path PATH /opt/clang/5.0.1/bin
+#    prepend_path LD_LIBEARY_PATH /opt/clang/5.0.1/lib
