@@ -1,0 +1,17 @@
+---
+
+# This role is a transcription of the installation guide below:
+#     https://developer.download.nvidia.com/compute/cuda/9.1/Prod/docs/sidebar/CUDA_Installation_Guide_Linux.pdf
+
+# Disable the nouveau driver before installing the cuda toolkits:
+- name: Persistently blacklist nouveau
+  become: yes
+  copy:
+    src: blacklist-nouveau.conf
+    dest: /etc/modprobe.d/blacklist-nouveau.conf
+
+- name: regenerate the initramfs
+  become: yes
+  shell: update-initramfs -u
+
+# Requires a reboot.
