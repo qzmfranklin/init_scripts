@@ -8,4 +8,5 @@
     - debian-packages
     - git
     - vim
+    - server-wifi
     #- pxe
