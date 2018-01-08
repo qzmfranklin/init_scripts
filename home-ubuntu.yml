@@ -4,10 +4,10 @@
     - import_tasks: handlers.yml
   roles:
     - bashrc
-    - clang
     - debian-packages
     - git
     - vim
     - server-wifi
     - cuda
+    - clang
     #- pxe

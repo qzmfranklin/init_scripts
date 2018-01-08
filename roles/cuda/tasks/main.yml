@@ -4,7 +4,7 @@
 #     https://developer.download.nvidia.com/compute/cuda/9.1/Prod/docs/sidebar/CUDA_Installation_Guide_Linux.pdf
 
 # Disable the nouveau driver before installing the cuda toolkits:
-- name: Persistently blacklist nouveau
+- name: persistently blacklist nouveau
   become: yes
   copy:
     src: blacklist-nouveau.conf
@@ -15,3 +15,16 @@
   shell: update-initramfs -u
 
 # Requires a reboot.
+
+- name: add proper paths to PATH and LD_LIBEARY_PATH
+  copy:
+    src: cuda.sh
+    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/cuda.sh "
+
+# The --override flag causes the installation to proceed while bypassing the
+# checks that would have normally been performed and prevented the installation
+# from proceeding.  It is highly recommended that the system be rebooted after
+# the installtion.
+- name: force install cuda to custom locations
+  becomes: yes
+  shell: "./runfile.run --silent --override --driver --toolkit --toolkitpath=/opt/cuda/9.1 --samples --samplespath=/opt/cuda/9.1/samples"

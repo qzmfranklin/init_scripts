@@ -1,15 +1,22 @@
 ---
 
+- name: detect existing installation
+  stat:
+    path: /opt/clang/5.0.1/bin
+  register: clang_bin_stat
+
 - name: download prebuilt clang tarball
   get_url:
     url: http://releases.llvm.org/5.0.1/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
     dest: /tmp/_ansible_clang.tar.xz
+  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
 
 # This may take around 10 minutes.
 - name: extract to a temporary directory
   unarchive:
     src: /tmp/_ansible_clang.tar.xz
     dest: /tmp
+  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
 
 - name: create the install directory
   become: yes
@@ -19,6 +26,7 @@
     mode: 0755
     owner: root
     group: root
+  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
 
 - name: copy to the install directory
   become: yes
@@ -31,8 +39,9 @@
     recursive: yes
     rsync_opts:
       - "--owner=root:root"
+  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
 
-# The last component of the clang-5.0.1 setup is in the `bashrc` role.  Under
-# file/.bashrc.d/env.d/path.sh, there are two lines:
-#    prepend_path PATH /opt/clang/5.0.1/bin
-#    prepend_path LD_LIBEARY_PATH /opt/clang/5.0.1/lib
+- name: Add proper paths to PATH and LD_LIBEARY_PATH
+  copy:
+    src: clang.sh
+    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/clang.sh "
