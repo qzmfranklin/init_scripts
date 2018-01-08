@@ -16,3 +16,7 @@ if [ -d ~/.bashrc.d ]; then
 fi
 
 start-ssh-agent
+
+echo "Please verify the environment:"
+echo -e "\tPATH\t\t$PATH"
+echo -e "\tLD_LIBRARY_PATH\t$LD_LIBRARY_PATH"

@@ -44,4 +44,4 @@
 - name: Add proper paths to PATH and LD_LIBEARY_PATH
   copy:
     src: clang.sh
-    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/clang.sh "
+    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/clang.sh"

@@ -19,7 +19,7 @@
 - name: add proper paths to PATH and LD_LIBEARY_PATH
   copy:
     src: cuda.sh
-    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/cuda.sh "
+    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/cuda.sh"
 
 # The --override flag causes the installation to proceed while bypassing the
 # checks that would have normally been performed and prevented the installation
