@@ -10,4 +10,5 @@
     - server-wifi
     - cuda
     - clang
+    - tensorflow
     #- pxe
