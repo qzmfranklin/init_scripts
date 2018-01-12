@@ -17,27 +17,33 @@ autocmd BufWritePre * :%s/\s\+$//e
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Easymotion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let EasyMotion_leader_key=";"
-nmap ;l <Plug>(easymotion-lineforward)
+let EasyMotion_leader_key=";"
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+let g:EasyMotion_use_smartsign_us = 1 " US layout
+"let g:EasyMotion_smartcase = 1
+
+" Search and move down, up, left, right, respectively.
 nmap ;j <Plug>(easymotion-j)
 nmap ;k <Plug>(easymotion-k)
+nmap ;l <Plug>(easymotion-lineforward)
 nmap ;h <Plug>(easymotion-linebackward)
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_use_smartsign_us = 1 " US layout
 
-" Bi-directional find motion
+vmap ;j <Plug>(easymotion-j)
+vmap ;k <Plug>(easymotion-k)
+vmap ;l <Plug>(easymotion-lineforward)
+vmap ;h <Plug>(easymotion-linebackward)
+
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
+ "`s{char}{label}`
 "nmap s <Plug>(easymotion-s)
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-s2)
+nnoremap s <Plug>(easymotion-s2)
 
 " NERDTree options
 "autocmd vimenter * NERDTree
-autocmd vimenter * if !argc() | NERDTree | endif
+"autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " close if the only open window
 
 "set modeline
@@ -46,7 +52,7 @@ filetype indent on
 syntax on
 set number relativenumber
 set foldmethod=syntax
-set history=1989
+set history=2048
 set autoread
 let mapleader=","
 let g:mapleader=","
@@ -61,11 +67,9 @@ let g:tex_conceal = ""
 nnoremap <leader>w :w!<cr>
 nnoremap <leader>q :q!<cr>
 
-" run current file in terminal
-nnoremap <leader>r :!./%
-
-" fast way out of insert mode
+" fast way out of insert and visual mode
 inoremap jk <esc>
+vnoremap l; <esc>
 
 " function for getting the selected text in visual mode
 " Originally from this thread:
@@ -86,6 +90,9 @@ nnoremap q' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap q[ viw<esc>a]<esc>hbi[<esc>lel
 nnoremap q{ viw<esc>a}<esc>hbi{<esc>lel
 nnoremap q( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap q< viw<esc>a><esc>hbi<<esc>lel
+
+" TODO: Add commands for quoting selected characters in visual mode.
 
 "set ignorecase
 set smartcase
