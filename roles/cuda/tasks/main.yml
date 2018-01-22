@@ -21,13 +21,24 @@
     src: cuda.sh
     dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/cuda.sh"
 
+
+# The run file for installing cuda is downloaded from:
+#     https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_387.26_linux
+# Note that only Ubuntu 16.04 and 17.04 are supported.  And, on top of that,
+# Ubuntu 17.04 has reached end of life Jan 2018.
+
+# The cudnn tar file is downloaded after logging into the nvidia developer port.
+
 # The --override flag causes the installation to proceed while bypassing the
 # checks that would have normally been performed and prevented the installation
 # from proceeding.  It is highly recommended that the system be rebooted after
 # the installtion.
-- name: force install cuda to custom locations
-  become: yes
-  shell: "./runfile.run --silent --override --driver --toolkit --toolkitpath=/opt/cuda/9.1 --samples --samplespath=/opt/cuda/9.1/samples"
+#- name: force install cuda to custom locations
+  #become: yes
+  #shell: "./runfile.run --silent --override --driver --toolkit --toolkitpath=/opt/cuda/9.1 --samples --samplespath=/opt/cuda/9.1/samples"
 
+
+# The installtion of cudnn cannot be automated.  It requires logging into
+# nvidia's developer port..
 #- name: install cudnn
   #become: yes

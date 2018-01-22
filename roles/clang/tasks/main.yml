@@ -5,18 +5,21 @@
     path: /opt/clang/5.0.1/bin
   register: clang_bin_stat
 
+- set_fact:
+    fresh_install: not (clang_bin_stat is defined and clang_bin_stat.stat is defined and clang_bin_stat.stat.isdir is defined and clang_bin_stat.stat.isdir)
+
 - name: download prebuilt clang tarball
   get_url:
     url: http://releases.llvm.org/5.0.1/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
     dest: /tmp/_ansible_clang.tar.xz
-  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
+  when: fresh_install
 
 # This may take around 10 minutes.
 - name: extract to a temporary directory
   unarchive:
     src: /tmp/_ansible_clang.tar.xz
     dest: /tmp
-  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
+  when: fresh_install
 
 - name: create the install directory
   become: yes
@@ -26,7 +29,7 @@
     mode: 0755
     owner: root
     group: root
-  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
+  when: fresh_install
 
 - name: copy to the install directory
   become: yes
@@ -39,7 +42,7 @@
     recursive: yes
     rsync_opts:
       - "--owner=root:root"
-  when: clang_bin_stat.stat is defined and not clang_bin_stat.stat.isdir
+  when: fresh_install
 
 - name: Add proper paths to PATH and LD_LIBEARY_PATH
   copy:

@@ -1,6 +1,7 @@
 ---
 
 - name: install prerequisites for building tensorflow from source
+  become: yes
   apt:
     pkg: "{{ item }}"
     state: latest
@@ -12,6 +13,7 @@
     - libcupti-dev
 
 - name: pip install packages
+  become: yes
   pip:
     executable: pip3
     name: "{{ item }}"
