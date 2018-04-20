@@ -1,16 +1,6 @@
 " Pathegen
 execute pathogen#infect()
 
-" Mathematica script file support
-au! BufRead,BufNewFile *.m set ft=mma sw=2
-
-" qbs syntax
-au! BufRead,BufNewFile *.qbs set ft=qml
-
-au! BufRead,BufNewFile *.yml set ft=ansible
-
-au! BufRead,BufNewFile *.swift set ft=swift
-
 " Turn on spell checking for LaTeX files.
 autocmd BufRead,BufNewFile *.tex setlocal spell
 
@@ -134,6 +124,21 @@ set tabstop=4
 "set noexpandtab
 "set shiftwidth=8
 "set tabstop=8
+
+" Mathematica script file support
+au! BufRead,BufNewFile *.m set ft=mma sw=2
+
+" qbs syntax
+au! BufRead,BufNewFile *.qbs set ft=qml
+
+" Ansible syntax
+au! BufRead,BufNewFile *.yml set ft=ansible
+
+" Swift syntax
+au! BufRead,BufNewFile *.swift set ft=swift
+
+" Makefile syntax
+au! BufRead,BufNewFile Makefile set noexpandtab tabstop=8
 
 " linebreak on 80 characters
 set lbr
