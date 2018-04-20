@@ -11,6 +11,9 @@ au! BufRead,BufNewFile *.yml set ft=ansible
 
 au! BufRead,BufNewFile *.swift set ft=swift
 
+" Turn on spell checking for LaTeX files.
+autocmd BufRead,BufNewFile *.tex setlocal spell
+
 "Removes trailing whitespaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -22,12 +25,13 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_use_smartsign_us = 1 " US layout
 "let g:EasyMotion_smartcase = 1
 
-" Search and move down, up, left, right, respectively.
+" Normal mode, search and move down, up, left, right, respectively.
 nmap ;j <Plug>(easymotion-j)
 nmap ;k <Plug>(easymotion-k)
 nmap ;l <Plug>(easymotion-lineforward)
 nmap ;h <Plug>(easymotion-linebackward)
 
+" Visual mode, search and move down, up, left, right, respectively.
 vmap ;j <Plug>(easymotion-j)
 vmap ;k <Plug>(easymotion-k)
 vmap ;l <Plug>(easymotion-lineforward)
@@ -137,7 +141,7 @@ set tw=80
 
 set ai      " auto indent
 set si      " smart indent
-set wrap    " wrap lines
+set nowrap    " wrap lines
 
 nnoremap j gj
 nnoremap k gk
@@ -181,6 +185,10 @@ set laststatus=2
 
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ Column:\ %c
+
+" Display eol, tab, trail, nbsp explicitly while preserving indentation.
+set list
+set listchars=tab:>·,trail:⎵
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -319,4 +327,3 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-
