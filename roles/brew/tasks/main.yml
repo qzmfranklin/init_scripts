@@ -1,11 +1,9 @@
 ---
-- name: install homebrew if not installed
-  shell: >
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  ignore_errors: yes
 
 - name: update homebrew and upgrade packages
-  shell: brew update && brew upgrade
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
 
 - name: homebrew install standard packages
   homebrew: name="{{ item }}" state=present
@@ -19,11 +17,8 @@
     - tree
     - wget
 
-# Ansible does not have very good support for casks and taps yet.  Fine.
-- name: homebrew install from custom taps
+- name: install and start docker
   shell: "{{ item }}"
   with_items:
     - brew cask install docker
-    #- brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git \
-            #&& brew install burntsushi/ripgrep/ripgrep-bin
-  ignore_errors: yes
+    - open /Applications/Docker.app

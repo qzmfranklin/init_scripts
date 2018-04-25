@@ -9,7 +9,7 @@ if [[ "$OS" == "Linux" ]]; then
     # The -K flag will prompt you to enter the sudo password.  That is OK.
     ansible-playbook -i 'localhost,' -c local ubuntu.yml -K
 elif [[ "$OS" == "Darwin" ]]; then
-    which brewn  || \
+    which brew  || \
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew update
     brew install ansible
