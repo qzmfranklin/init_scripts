@@ -24,6 +24,7 @@
     - node@8
     - pkg-config
     - python3
+    - shellcheck
     - tree
     - wget
 
@@ -45,6 +46,7 @@
     executable: pip3
   with_items:
     - netaddr
+    - pip
     - pre-commit
     - pylint
     - yapf

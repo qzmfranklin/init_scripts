@@ -12,9 +12,9 @@ elif [[ "$OS" == "Darwin" ]]; then
     which brew  || \
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew update
-    brew install ansible
+    brew install ansible  &&  brew upgrade ansible
     # This should NOT prompt for any password.  DO NOT USE SUDO.
     ansible-playbook -i 'localhost,' -c local macos.yml
 else
-    echo "Arch $arch is not supported."
+    echo "Architecture $arch is not supported."
 fi
