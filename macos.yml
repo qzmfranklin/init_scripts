@@ -1,8 +1,9 @@
 ---
 - hosts: all
+  handlers:
+    - import_tasks: handlers.yml
   roles:
     - bashrc
+    - packages
     - git
     - vim
-    - gcloud
-    - brew

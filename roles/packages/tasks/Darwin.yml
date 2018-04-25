@@ -1,0 +1,64 @@
+---
+
+- name: update homebrew and upgrade packages
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
+
+- name: homebrew install standard packages
+  homebrew:
+    name: "{{ item }}"
+    state: upgraded
+  with_items:
+    # NOTE: Keep these lists sorted!!!
+    - automake
+    - bazel
+    - cmake
+    - curl
+    - git
+    - git-lfs
+    - htop
+    - iftop
+    - jq
+    - libtool
+    - node@8
+    - pkg-config
+    - python3
+    - tree
+    - wget
+
+- name: install homebrew cask pacakges
+  homebrew_cask:
+    name: "{{ item }}"
+    state: upgraded
+  with_items:
+    - docker
+    - google-cloud-sdk
+
+- name: start docker daemon
+  shell: open /Applications/Docker.app
+
+- name: install python3 pacakges via pip3
+  pip:
+    name: "{{ item }}"
+    state: latest
+    executable: pip3
+  with_items:
+    - netaddr
+    - pre-commit
+    - pylint
+    - yapf
+
+- name: npm install -g packages
+  npm:
+    executable: npm
+    global: yes
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - npm
+    - tslint
+    - typescript
+
+- name: flush_handlers
+  meta: flush_handlers

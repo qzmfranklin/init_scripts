@@ -1,0 +1,134 @@
+---
+
+- name: dpkg --remove-architecture i386
+  become: yes
+  command: dpkg --remove-architecture i386
+
+- name: add gpg key for third party apt-repos
+  become: yes
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+    - https://bazel.build/bazel-release.pub.gpg
+    - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    - https://download.docker.com/linux/ubuntu/gpg
+    - https://packagecloud.io/github/git-lfs/gpgkey
+
+- name: add third party apt-repos
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
+    - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
+    - "deb https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
+    # TODO: Better understand how deb-src for nodejs affects the installation.
+    # Either remove the lines below or uncomment them.
+    #- "deb-src https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
+    #- "deb-src https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
+
+- name: update apt-cache
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: install essential developer tools
+  become: yes
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    # NOTE: Keep these lists sorted!!!
+    - automake
+    - bazel
+    - cmake
+    - curl
+    - docker-ce
+    - git
+    - git-lfs
+    - htop
+    - iftop
+    - iotop
+    - jq
+    - libtool
+    - nodejs
+    - openjdk-8-jdk
+    - python3
+    - python3-pip
+    - ssh
+    - tree
+    - wget
+
+    # Other packages.
+    #- astyle
+    #- cscope
+    #- ctags
+    #- debconf-utils
+    #- genisoimage
+    #- libguestfs-tools
+    #- libvirt-bin
+    #- mdadm
+    #- mongodb
+    #- python-pip
+    #- python3-libvirt
+    #- python3-paramiko
+    #- python3-yaml
+    #- qemu-system-x86
+    #- smartmontools
+    #- squashfs-tools
+    #- syslinux-utils # for isohybrid
+    #- twine # for uploading python packages to pypi
+    #- virt-manager
+
+- name: install python3 pacakges via pip3
+  become: yes
+  pip:
+    name: "{{ item }}"
+    state: latest
+    executable: pip3
+  with_items:
+    - netaddr
+    - pre-commit
+    - pylint
+    - yapf
+
+# This task will take effect after a reboot.
+- name: add current user to group docker
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+
+## The libvirt has a feature called dynamic_ownership that causes libvirtd to
+## change the ownership of disk images to root:root every time the containing
+## libvirt domain is started.  That conflicts with the use model where non-root
+## users can freely use libvirt domains.  As a result, turn dynamic_ownership off
+## here.
+#- name: disable dynamic_ownership for libvirt
+  #become: yes
+  #lineinfile:
+    #dest: /etc/libvirt/qemu.conf
+    #regexp: "^dynamic_ownership(?! = 0)"
+    #line: "dynamic_ownership = 0"
+    #state: present
+    #backrefs: yes # if no match, do not change the file
+  #notify: restart-libvirt
+
+- name: npm install -g packages
+  become: yes
+  npm:
+    executable: npm
+    global: yes
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - npm
+    - tslint
+    - typescript
+
+- name: flush_handlers
+  meta: flush_handlers

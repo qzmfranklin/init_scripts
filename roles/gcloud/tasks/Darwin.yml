@@ -1,5 +1,0 @@
----
-
-- name: install gcloud
-  command: >
-    brew cask install google-cloud-sdk

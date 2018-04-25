@@ -4,11 +4,12 @@
     - import_tasks: handlers.yml
   roles:
     - bashrc
-    - debian-packages
+    - packages
     - git
     - vim
+
     - server-wifi
     - cuda
     - clang
-    - tensorflow
+    #- tensorflow
     #- pxe

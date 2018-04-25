@@ -132,7 +132,7 @@ au! BufRead,BufNewFile *.m set ft=mma sw=2
 au! BufRead,BufNewFile *.qbs set ft=qml
 
 " Ansible syntax
-au! BufRead,BufNewFile *.yml set ft=ansible
+au! BufRead,BufNewFile *.yml set ft=yaml.ansible
 
 " Swift syntax
 au! BufRead,BufNewFile *.swift set ft=swift
