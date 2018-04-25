@@ -6,13 +6,13 @@
 
 - name: update homebrew and upgrade packages
   shell: brew update && brew upgrade
-  when: ansible_os_family == "Darwin"
 
 - name: homebrew install standard packages
   homebrew: name="{{ item }}" state=present
   with_items:
     - astyle
     - ctags
+    - jq
     - pkg-config
     - python
     - python3
@@ -24,6 +24,6 @@
   shell: "{{ item }}"
   with_items:
     - brew cask install docker
-    - brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git \
-            && brew install burntsushi/ripgrep/ripgrep-bin
+    #- brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git \
+            #&& brew install burntsushi/ripgrep/ripgrep-bin
   ignore_errors: yes

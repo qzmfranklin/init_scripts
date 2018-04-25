@@ -15,32 +15,32 @@
     pkg: "{{ item }}"
     state: latest
   with_items:
-    - cscope
-    - ctags
+    #- cscope
+    #- ctags
     #- debconf-utils
-    #- docker.io
-    - genisoimage
+    #- genisoimage
     - git
     - htop
     - iftop
     - iotop
-    - syslinux-utils # for isohybrid
-    - libguestfs-tools
-    - libvirt-bin
+    - jq
+    #- syslinux-utils # for isohybrid
+    #- libguestfs-tools
+    #- libvirt-bin
     - mdadm
     #- mongodb
-    - python-pip
+    #- python-pip
     - python3-pip
     #- python3-libvirt
     #- python3-paramiko
     #- python3-yaml
-    - qemu-system-x86
-    - smartmontools
+    #- qemu-system-x86
+    #- smartmontools
     - squashfs-tools
     - ssh
     - tree
-    - twine # for uploading python packages to pypi
-    - virt-manager
+    #- twine # for uploading python packages to pypi
+    #- virt-manager
 
 #- name: install python3 packages that are only available via pip
   #become: yes
@@ -73,7 +73,7 @@
     state: present
   with_items:
     - https://bazel.build/bazel-release.pub.gpg
-    - https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    #- https://packages.cloud.google.com/apt/doc/apt-key.gpg
     - https://download.docker.com/linux/ubuntu/gpg
 
 - name: add third party apt-repos
@@ -83,7 +83,7 @@
     state: present
   with_items:
     - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
-    - "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
+    #- "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
     - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
 
 - name: apt-get update
@@ -99,7 +99,7 @@
   with_items:
     - openjdk-8-jdk
     - bazel
-    - google-cloud-sdk
+    #- google-cloud-sdk
     - docker-ce
 
 # This task will take effect after a reboot.
