@@ -1,0 +1,27 @@
+---
+
+# TODO: Find a good way to install these pacakges.
+## These .deb files are generated using dpkg-repack from a valid installation.
+#- name: install packages from checked-in .deb files
+  #become: yes
+  #apt:
+    #deb: "{{ role_path }}/files/{{ item }}"
+  #with_items:
+    #- bazel_0.12.0_amd64.deb
+    #- docker-ce_18.03.0~ce-0~ubuntu_amd64.deb
+    #- git-lfs_2.4.0_amd64.deb
+    #- nodejs_8.11.1-1nodesource1_amd64.deb
+
+- name: configure npm source
+  become: yes
+  command: npm config set registry https://registry.npm.taobao.org
+
+- name: mkdir -p ~/.pip
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.pip/pip.conf"
+    state: directory
+
+- name: configure pypi source
+  copy:
+    src: "{{ role_path }}/files/pip.conf-CN"
+    dest: "{{ lookup('env', 'HOME') }}/.pip/pip.conf"

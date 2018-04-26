@@ -59,9 +59,8 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - eslint
+    - jsonlint
     - npm
     - tslint
     - typescript
-
-- name: flush_handlers
-  meta: flush_handlers

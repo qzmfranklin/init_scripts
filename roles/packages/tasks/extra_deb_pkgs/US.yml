@@ -1,0 +1,48 @@
+---
+
+- name: add gpg key for third party apt-repos
+  become: yes
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+    - https://bazel.build/bazel-release.pub.gpg
+    - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    - https://download.docker.com/linux/ubuntu/gpg
+    - https://packagecloud.io/github/git-lfs/gpgkey
+
+- name: add third party apt-repos
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb http://storage.googleapis.com/bazel-apt stable jdk1.8"
+    - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
+    - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    - "deb https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
+
+- name: apt update
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: install third party packages
+  become: yes
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - bazel
+    - docker-ce
+    - git-lfs
+    - nodejs
+
+- name: configure npm source
+  become: yes
+  command: npm config set registry https://registry.npmjs.org/
+
+- name: configure pypi source
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.pip/pip.conf"
+    state: absent

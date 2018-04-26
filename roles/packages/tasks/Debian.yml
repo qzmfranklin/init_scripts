@@ -1,39 +1,14 @@
 ---
 
-- name: dpkg --remove-architecture i386
+- name: uninstall i386 packages
+  become: yes
+  command: "apt-get purge \".*:i386\""
+  args:
+    warn: false
+
+- name: completely remove i386
   become: yes
   command: dpkg --remove-architecture i386
-
-- name: add gpg key for third party apt-repos
-  become: yes
-  apt_key:
-    url: "{{ item }}"
-    state: present
-  with_items:
-    - https://bazel.build/bazel-release.pub.gpg
-    - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    - https://download.docker.com/linux/ubuntu/gpg
-    - https://packagecloud.io/github/git-lfs/gpgkey
-
-- name: add third party apt-repos
-  become: yes
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-  with_items:
-    - deb http://storage.googleapis.com/bazel-apt stable jdk1.8
-    - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-    - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
-    - "deb https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
-    # TODO: Better understand how deb-src for nodejs affects the installation.
-    # Either remove the lines below or uncomment them.
-    #- "deb-src https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
-    #- "deb-src https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
-
-- name: update apt-cache
-  become: yes
-  apt:
-    update_cache: yes
 
 - name: install essential developer tools
   become: yes
@@ -43,18 +18,14 @@
   with_items:
     # NOTE: Keep these lists sorted!!!
     - automake
-    - bazel
     - cmake
     - curl
-    - docker-ce
     - git
-    - git-lfs
     - htop
     - iftop
     - iotop
     - jq
     - libtool
-    - nodejs
     - openjdk-8-jdk
     - python3
     - python3-pip
@@ -83,6 +54,9 @@
     #- syslinux-utils # for isohybrid
     #- twine # for uploading python packages to pypi
     #- virt-manager
+
+# The installation of certain packages depend on the location.
+- include_tasks: "extra_deb_pkgs/main.yml"
 
 - name: install python3 pacakges via pip3
   become: yes
@@ -129,9 +103,8 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - eslint
+    - jsonlint
     - npm
     - tslint
     - typescript
-
-- name: flush_handlers
-  meta: flush_handlers
