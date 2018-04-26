@@ -35,6 +35,7 @@
   with_items:
     - docker
     - google-cloud-sdk
+    - visual-studio-code
 
 - name: start docker daemon
   shell: open /Applications/Docker.app

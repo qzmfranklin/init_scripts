@@ -18,7 +18,7 @@
 
 - name: mkdir -p ~/.pip
   file:
-    path: "{{ lookup('env', 'HOME') }}/.pip/pip.conf"
+    path: "{{ lookup('env', 'HOME') }}/.pip"
     state: directory
 
 - name: configure pypi source

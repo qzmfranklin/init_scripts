@@ -10,6 +10,7 @@
     - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     - https://download.docker.com/linux/ubuntu/gpg
     - https://packagecloud.io/github/git-lfs/gpgkey
+    - https://packages.microsoft.com/keys/microsoft.asc
 
 - name: add third party apt-repos
   become: yes
@@ -21,6 +22,7 @@
     - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
     - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     - "deb https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
+    - "deb https://packages.microsoft.com/repos/vscode stable main"
 
 - name: apt update
   become: yes
@@ -34,6 +36,7 @@
     state: latest
   with_items:
     - bazel
+    - code
     - docker-ce
     - git-lfs
     - nodejs
