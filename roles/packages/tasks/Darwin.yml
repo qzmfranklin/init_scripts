@@ -61,7 +61,6 @@
     state: latest
   with_items:
     - eslint
-    - jsonlint
     - npm
     - tslint
     - typescript
