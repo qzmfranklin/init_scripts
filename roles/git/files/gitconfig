@@ -10,3 +10,4 @@
 	prunelocal = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
 	prunelocal-force = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
 	tree = log --graph --oneline --decorate
+	land = !git add :/ && git commit
