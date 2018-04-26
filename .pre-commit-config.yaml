@@ -1,0 +1,21 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v1.2.3
+    hooks:
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: name-tests-test
+
+    # Lint ansible scripts.
+    #
+    # More information about the linter:
+    #       https://github.com/willthames/ansible-lint
+    #
+    # By convention, ansible yaml scripts have .yml extension name, whereas
+    # regular yaml files have the .yaml extension name.  There is currently no
+    # good way to enforce it automatically.
+    -   id: ansible-lint
+        name: Lint ansible scripts
+        entry: ansible-lint --force-color -c .ansible-lint
+        language: system
+        files: ^.*\.yml$

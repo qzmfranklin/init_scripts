@@ -45,6 +45,7 @@
     state: latest
     executable: pip3
   with_items:
+    - ansible-lint
     - netaddr
     - pip
     - pre-commit
