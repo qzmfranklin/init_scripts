@@ -1,7 +1,7 @@
 ---
-# yamllint enable rule:key-ordering
 
-# Please keep these lists sorted!
+# NOTE: Please keep these lists sorted!
+# yamllint enable rule:key-ordering
 common:
     npm_pkgs:
         - eslint
@@ -99,3 +99,4 @@ debian:
         - syslinux-utils # for isohybrid
         - twine # for uploading python packages to pypi
         - virt-manager
+# yamllint disable rule:key-ordering

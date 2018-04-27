@@ -8,7 +8,7 @@
 extends: default
 
 rules:
-    indentation:
-        spaces: 4
     comments:
         require-starting-space: false
+    indentation:
+        spaces: 4
