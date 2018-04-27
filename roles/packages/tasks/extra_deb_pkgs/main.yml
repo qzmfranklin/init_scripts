@@ -4,12 +4,12 @@
 # curl.  At the moment, it is OK to ignore the following runtime warning:
 - name: get current country code
   shell: >
-    curl -s http://ip-api.com/json | jq -r .countryCode
+      curl -s http://ip-api.com/json | jq -r .countryCode
   register: __curl_retval__
   args:
-    warn: false
+      warn: false
 
 - set_fact:
-    country_code: "{{ __curl_retval__.stdout }}"
+      country_code: "{{ __curl_retval__.stdout }}"
 
 - include_tasks: "extra_deb_pkgs/{{ country_code }}.yml"

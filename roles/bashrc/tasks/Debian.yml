@@ -1,23 +1,26 @@
 ---
 
 - name: touch ~/.bash_profile
-  file: >
-    path="{{ lookup('env','HOME') }}/{{ item }}"
-    state=touch
+  file:
+      path: "{{ lookup('env','HOME') }}/{{ item }}"
+      state: touch
   with_items:
-    - .bashrc
-    - .bash_profile
+      - .bashrc
+      - .bash_profile
 
 - name: ~/.bash_profile sources ~/.bashrc
-  lineinfile: >
-    dest="{{ lookup('env','HOME') }}/.bash_profile"
-    line="[ -f ~/.bashrc ] && . ~/.bashrc"
+  lineinfile:
+      dest: "{{ lookup('env','HOME') }}/.bash_profile"
+      line: "[ -f ~/.bashrc ] && . ~/.bashrc"
 
 - name: ~/.bashrc sources ~/.bashrc_main
-  lineinfile: >
-    dest="{{ lookup('env','HOME') }}/.bashrc"
-    line="[ -f ~/.bashrc_main ] && . ~/.bashrc_main"
+  lineinfile:
+      dest: "{{ lookup('env','HOME') }}/.bashrc"
+      line: "[ -f ~/.bashrc_main ] && . ~/.bashrc_main"
 
 - name: install xclip
-  become: yes
-  apt: pkg=xclip state=latest update_cache=yes
+  become: true
+  apt:
+      pkg: xclip
+      state: latest
+      update_cache: true

@@ -2,65 +2,66 @@
 
 - name: update homebrew and upgrade packages
   homebrew:
-    update_homebrew: yes
-    upgrade_all: yes
+      update_homebrew: true
+      upgrade_all: true
 
 - name: homebrew install standard packages
   homebrew:
-    name: "{{ item }}"
-    state: upgraded
+      name: "{{ item }}"
+      state: upgraded
   with_items:
-    # NOTE: Keep these lists sorted!!!
-    - automake
-    - bazel
-    - cmake
-    - curl
-    - git
-    - git-lfs
-    - htop
-    - iftop
-    - jq
-    - libtool
-    - node@8
-    - pkg-config
-    - python3
-    - shellcheck
-    - tree
-    - wget
+      # NOTE: Keep these lists sorted!!!
+      - automake
+      - bazel
+      - cmake
+      - curl
+      - git
+      - git-lfs
+      - htop
+      - iftop
+      - jq
+      - libtool
+      - node@8
+      - pkg-config
+      - python3
+      - shellcheck
+      - tree
+      - wget
 
 - name: install homebrew cask pacakges
   homebrew_cask:
-    name: "{{ item }}"
-    state: upgraded
+      name: "{{ item }}"
+      state: upgraded
   with_items:
-    - docker
-    - google-cloud-sdk
-    - visual-studio-code
+      - docker
+      - google-cloud-sdk
+      - visual-studio-code
 
 - name: start docker daemon
   shell: open /Applications/Docker.app
 
 - name: install python3 pacakges via pip3
   pip:
-    name: "{{ item }}"
-    state: latest
-    executable: pip3
+      name: "{{ item }}"
+      state: latest
+      executable: pip3
   with_items:
-    - ansible-lint
-    - netaddr
-    - pip
-    - pre-commit
-    - pylint
-    - yapf
+      - ansible-lint
+      - netaddr
+      - pip
+      - pre-commit
+      - pylint
+      - yamllint
+      - yapf
 
 - name: npm install -g packages
   npm:
-    executable: npm
-    global: yes
-    name: "{{ item }}"
-    state: latest
+      executable: npm
+      global: true
+      name: "{{ item }}"
+      state: latest
   with_items:
-    - eslint
-    - npm
-    - tslint
-    - typescript
+      - eslint
+      - npm
+      - tslint
+      - typescript

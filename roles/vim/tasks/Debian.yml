@@ -1,8 +1,8 @@
 ---
 
 - name: install gvim
-  become: yes
+  become: true
   apt:
-    pkg=vim-gnome
-    state=latest
-    update_cache=yes
+      pkg: vim-gnome
+      state: latest
+      update_cache: true

@@ -34,4 +34,3 @@ remove_path() {
   aux=${aux//:$2:/:}; aux=${aux#:}; aux=${aux%:}
   printf -v "$1" '%s' "$aux"
 }
-

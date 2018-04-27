@@ -1,109 +1,95 @@
 ---
 
 - name: uninstall i386 packages
-  become: yes
+  become: true
   command: "apt-get purge \".*:i386\""
   args:
-    warn: false
+      warn: false
 
 - name: completely remove i386
-  become: yes
+  become: true
   command: dpkg --remove-architecture i386
 
 - name: install essential developer tools
-  become: yes
+  become: true
   apt:
-    pkg: "{{ item }}"
-    state: latest
+      pkg: "{{ item }}"
+      state: latest
   with_items:
-    # NOTE: Keep these lists sorted!!!
-    - automake
-    - cmake
-    - curl
-    - git
-    - htop
-    - iftop
-    - iotop
-    - jq
-    - libtool
-    - openjdk-8-jdk
-    - python3
-    - python3-pip
-    - shellcheck
-    - ssh
-    - tree
-    - wget
+      # NOTE: Keep these lists sorted!!!
+      - automake
+      - cmake
+      - curl
+      - git
+      - htop
+      - iftop
+      - iotop
+      - jq
+      - libtool
+      - openjdk-8-jdk
+      - python3
+      - python3-pip
+      - shellcheck
+      - ssh
+      - tree
+      - wget
 
-    # Other packages.
-    #- astyle
-    #- cscope
-    #- ctags
-    #- debconf-utils
-    #- genisoimage
-    #- libguestfs-tools
-    #- libvirt-bin
-    #- mdadm
-    #- mongodb
-    #- python-pip
-    #- python3-libvirt
-    #- python3-paramiko
-    #- python3-yaml
-    #- qemu-system-x86
-    #- smartmontools
-    #- squashfs-tools
-    #- syslinux-utils # for isohybrid
-    #- twine # for uploading python packages to pypi
-    #- virt-manager
+      # Other packages.
+      #- astyle
+      #- cscope
+      #- ctags
+      #- debconf-utils
+      #- genisoimage
+      #- libguestfs-tools
+      #- libvirt-bin
+      #- mdadm
+      #- mongodb
+      #- python-pip
+      #- python3-libvirt
+      #- python3-paramiko
+      #- python3-yaml
+      #- qemu-system-x86
+      #- smartmontools
+      #- squashfs-tools
+      #- syslinux-utils # for isohybrid
+      #- twine # for uploading python packages to pypi
+      #- virt-manager
 
 # The installation of certain packages depend on the location.
 - include_tasks: "extra_deb_pkgs/main.yml"
 
 - name: install python3 pacakges via pip3
-  become: yes
+  become: true
   pip:
-    name: "{{ item }}"
-    state: latest
-    executable: pip3
+      name: "{{ item }}"
+      state: latest
+      executable: pip3
   with_items:
-    - ansible-lint
-    - netaddr
-    - pip
-    - pre-commit
-    - pylint
-    - yapf
+      - ansible-lint
+      - netaddr
+      - pip
+      - pre-commit
+      - pylint
+      - yamllint
+      - yapf
 
 # This task will take effect after a reboot.
 - name: add current user to group docker
-  become: yes
+  become: true
   user:
-    name: "{{ ansible_user_id }}"
-    groups: docker
-    append: yes
-
-## The libvirt has a feature called dynamic_ownership that causes libvirtd to
-## change the ownership of disk images to root:root every time the containing
-## libvirt domain is started.  That conflicts with the use model where non-root
-## users can freely use libvirt domains.  As a result, turn dynamic_ownership off
-## here.
-#- name: disable dynamic_ownership for libvirt
-  #become: yes
-  #lineinfile:
-    #dest: /etc/libvirt/qemu.conf
-    #regexp: "^dynamic_ownership(?! = 0)"
-    #line: "dynamic_ownership = 0"
-    #state: present
-    #backrefs: yes # if no match, do not change the file
-  #notify: restart-libvirt
+      name: "{{ ansible_user_id }}"
+      groups: docker
+      append: true
 
 - name: npm install -g packages
-  become: yes
+  become: true
   npm:
-    executable: npm
-    global: yes
-    name: "{{ item }}"
-    state: latest
+      executable: npm
+      global: true
+      name: "{{ item }}"
+      state: latest
   with_items:
-    - eslint
-    - npm
-    - tslint
-    - typescript
+      - eslint
+      - npm
+      - tslint
+      - typescript

@@ -1,7 +1,7 @@
 ---
 
 - name: install macvim with python3 and lua support
-  homebrew: >
-    name=macvim
-    state=present
-    install_options="--with-python3 --with-lua"
+  homebrew:
+      name: macvim
+      state: present
+      install_options: "--with-python3 --with-lua"

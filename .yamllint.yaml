@@ -1,0 +1,14 @@
+---
+
+# The default configuration can be retrieved here:
+#       https://yamllint.readthedocs.io/en/stable/configuration.html
+#
+# The rules are thoroughly explained with examples here:
+#       https://yamllint.readthedocs.io/en/stable/rules.html
+extends: default
+
+rules:
+    indentation:
+        spaces: 4
+    comments:
+        require-starting-space: false

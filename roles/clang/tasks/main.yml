@@ -2,53 +2,56 @@
 
 - name: detect existing installation
   stat:
-    path: /opt/clang/6.0.0/bin
+      path: /opt/clang/6.0.0/bin
   register: clang_bin_stat
 
 - set_fact:
-    fresh_install: not (clang_bin_stat is defined and clang_bin_stat.stat is defined and clang_bin_stat.stat.isdir is defined and clang_bin_stat.stat.isdir)
+      # yamllint disable-line rule:line-length
+      fresh_install: not (clang_bin_stat is defined and clang_bin_stat.stat is defined and clang_bin_stat.stat.isdir is defined and clang_bin_stat.stat.isdir)
 
 - name: download prebuilt clang tarball
   get_url:
-    url: http://releases.llvm.org/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
-    dest: /tmp/_ansible_clang.tar.xz
+      # yamllint disable-line rule:line-length
+      url: http://releases.llvm.org/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
+      dest: /tmp/_ansible_clang.tar.xz
   when: fresh_install
 
 # This may take around 10 minutes.
 - name: extract to a temporary directory
   unarchive:
-    src: /tmp/_ansible_clang.tar.xz
-    dest: /tmp
+      src: /tmp/_ansible_clang.tar.xz
+      dest: /tmp
   when: fresh_install
 
 - name: create the install directory
-  become: yes
+  become: true
   file:
-    path: /opt/clang
-    state: directory
-    mode: 0755
-    owner: root
-    group: root
+      path: /opt/clang
+      state: directory
+      mode: 0755
+      owner: root
+      group: root
   when: fresh_install
 
 - name: copy to the install directory
-  become: yes
+  become: true
   synchronize:
-    # Don't remove the trailing slash in src.  Without the trailing slash, you
-    # end up with /opt/clang/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04.
-    #
-    # CAVEAT (zhongming): The clang 6.0.0 download page only has prebuilt
-    # binaries for Ubuntu 14.04.  Though, it has been tested that the binaries
-    # work just fine on a Ubuntu 16.04 machine.
-    src: /tmp/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04/
-    dest: /opt/clang/6.0.0
-    delete: yes
-    recursive: yes
-    rsync_opts:
-      - "--owner=root:root"
+      # Don't remove the trailing slash in src.  Without the trailing slash, you
+      # end up with
+      # /opt/clang/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04.
+      #
+      # CAVEAT (zhongming): The clang 6.0.0 download page only has prebuilt
+      # binaries for Ubuntu 14.04.  Though, it has been tested that the binaries
+      # work just fine on a Ubuntu 16.04 machine.
+      src: /tmp/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04/
+      dest: /opt/clang/6.0.0
+      delete: true
+      recursive: true
+      rsync_opts:
+          - "--owner=root:root"
   when: fresh_install
 
 - name: Add proper paths to PATH and LD_LIBEARY_PATH
   copy:
-    src: clang.sh
-    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/clang.sh"
+      src: clang.sh
+      dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/clang.sh"
