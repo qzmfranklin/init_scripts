@@ -1,37 +1,37 @@
 ---
 
 - name: install gnome
-  become: yes
+  become: true
   apt:
-    pkg: "{{ item }}"
-    state: latest
+      pkg: "{{ item }}"
+      state: latest
   with_items:
-    - gnome-shell
-    - ubuntu-gnome-desktop
+      - gnome-shell
+      - ubuntu-gnome-desktop
 
 - name: use lightdm as the graphical windows manager
-  become: yes
+  become: true
   debconf:
-    name: "{{ item }}"
-    question: shared/default-x-display-manager
-    value: lightdm
-    vtype: select
+      name: "{{ item }}"
+      question: shared/default-x-display-manager
+      value: lightdm
+      vtype: select
   with_items:
-    - gdm3
-    - lightdm
+      - gdm3
+      - lightdm
   notify:
-    - restart-lightdm
+      - restart-lightdm
 
 - name: customize greeter ui
-  become: yes
+  become: true
   copy:
-    src: 50-ubuntu.conf
-    dest: /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf
-    owner: root
-    group: root
-    mode: 0644
+      src: 50-ubuntu.conf
+      dest: /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf
+      owner: root
+      group: root
+      mode: 0644
   notify:
-    - restart-lightdm
+      - restart-lightdm
 
 - name: flush_handlers
   meta: flush_handlers

@@ -1,7 +1,7 @@
 ---
 
 - name: mkdir ~/.bashrc.d
-  file: >
+  file:
       path: "{{ lookup('env','HOME') }}/.bashrc.d/{{ item }}"
       state: directory
   with_items:
@@ -12,13 +12,13 @@
       - prompt.d
 
 - name: install ~/.bashrc.d/**
-  synchronize: >
+  synchronize:
       src: .bashrc.d
       dest: "{{ lookup('env','HOME') }}/"
       recursive: true
 
 - name: install ~/.bashrc_main
-  copy: >
+  copy:
       src: bashrc_main
       dest: "{{ lookup('env','HOME') }}/.bashrc_main"
 

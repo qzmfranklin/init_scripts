@@ -1,8 +1,11 @@
 ---
 
 - name: install git with apt-get
-  become: yes
-  apt: pkg="{{ item }}" state=latest update_cache=yes
+  become: true
+  apt:
+      pkg: "{{ item }}"
+      state: latest
+      update_cache: true
   with_items:
-    - git
-    - git-svn
+      - git
+      - git-svn

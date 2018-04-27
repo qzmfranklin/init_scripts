@@ -1,17 +1,17 @@
 ---
 
 - name: restart-dhcp
-  become: yes
-  service: name=isc-dhcp-server enabled=yes state=restarted
+  become: true
+  service: name=isc-dhcp-server enabled=true state=restarted
 
 - name: restart-libvirt
-  become: yes
-  service: name=libvirt-bin enabled=yes state=restarted
+  become: true
+  service: name=libvirt-bin enabled=true state=restarted
 
 - name: restart-tftp
-  become: yes
-  service: name=tftpd-hpa enabled=yes state=restarted
+  become: true
+  service: name=tftpd-hpa enabled=true state=restarted
 
 - name: restart-lightdm
-  become: yes
-  service: name=lightdm enabled=yes state=restarted
+  become: true
+  service: name=lightdm enabled=true state=restarted

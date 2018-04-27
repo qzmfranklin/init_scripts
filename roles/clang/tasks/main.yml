@@ -5,7 +5,8 @@
       path: /opt/clang/6.0.0/bin
   register: clang_bin_stat
 
-- set_fact:
+- name: detect whether it is a fresh_install
+  set_fact:
       # yamllint disable-line rule:line-length
       fresh_install: not (clang_bin_stat is defined and clang_bin_stat.stat is defined and clang_bin_stat.stat.isdir is defined and clang_bin_stat.stat.isdir)
 

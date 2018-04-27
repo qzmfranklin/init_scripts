@@ -4,65 +4,65 @@
 #     https://help.ubuntu.com/community/DisklessUbuntuHowto
 
 - name: apt install packages used for pxe
-  become: yes
+  become: true
   apt:
-    pkg: "{{ item }}"
-    state: latest
+      pkg: "{{ item }}"
+      state: latest
   with_items:
-    - initramfs-tools
-    - isc-dhcp-server
-    - nfs-kernel-server
-    - pxelinux
-    - syslinux
-    - tftpd-hpa
+      - initramfs-tools
+      - isc-dhcp-server
+      - nfs-kernel-server
+      - pxelinux
+      - syslinux
+      - tftpd-hpa
   notify:
-    - restart-dhcp
-    - restart-tftp
+      - restart-dhcp
+      - restart-tftp
 
 - name: setup /var/lib/tftpboot
-  become: yes
+  become: true
   file:
-    path: /var/lib/tftpboot
-    owner: root
-    group: engineering
-    mode: 03775
+      path: /var/lib/tftpboot
+      owner: root
+      group: engineering
+      mode: 03775
 
 - name: install /etc/dhcp/dhcpd.conf
-  become: yes
+  become: true
   copy:
-    src: dhcpd.conf
-    dest: /etc/dhcp/dhcpd.conf
+      src: dhcpd.conf
+      dest: /etc/dhcp/dhcpd.conf
 
 - name: mkdir -p /var/lib/tftpboot/boot
-  become: yes
+  become: true
   file:
-    path: "/var/lib/tftpboot/{{ item }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 04755
+      path: "/var/lib/tftpboot/{{ item }}"
+      state: directory
+      owner: root
+      group: root
+      mode: 04755
   with_items:
-    - boot
-    - pxelinux.cfg
+      - boot
+      - pxelinux.cfg
 
 - name: add /var/lib/tftpboot/pxelinux.cfg/default
-  become: yes
+  become: true
   copy:
-    src: pxelinux.cfg.default
-    dest: /var/lib/tftpboot/pxelinux.cfg/default
+      src: pxelinux.cfg.default
+      dest: /var/lib/tftpboot/pxelinux.cfg/default
 
 - name: symlink boot binaries
-  become: yes
+  become: true
   file:
-    src: "{{ item.key }}"
-    dest: "{{ item.value }}"
-    owner: root
-    group: root
-    state: link
+      src: "{{ item.key }}"
+      dest: "{{ item.value }}"
+      owner: root
+      group: root
+      state: link
   with_dict:
-    /usr/lib/PXELINUX/pxelinux.0: /var/lib/tftpboot/pxelinux.0
-    /usr/lib/syslinux/memdisk: /var/lib/tftpboot/boot/memdisk
-    /usr/lib/syslinux/modules/bios: /var/lib/tftpboot/boot/isolinux
+      /usr/lib/PXELINUX/pxelinux.0: /var/lib/tftpboot/pxelinux.0
+      /usr/lib/syslinux/memdisk: /var/lib/tftpboot/boot/memdisk
+      /usr/lib/syslinux/modules/bios: /var/lib/tftpboot/boot/isolinux
 
 - name: flush_handlers
   meta: flush_handlers

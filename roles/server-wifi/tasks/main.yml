@@ -1,19 +1,20 @@
 ---
 
 - name: configure the wifi interface wpl3s0
-  become: yes
+  become: true
   copy:
-    src: "{{ item.key }}"
-    dest: "{{ item.value }}"
+      src: "{{ item.key }}"
+      dest: "{{ item.value }}"
   with_dict:
-    interfaces: /etc/network/interfaces
-    wpa_supplicant.conf: /etc/wpa_supplicant/wpa_supplicant.conf
+      interfaces: /etc/network/interfaces
+      wpa_supplicant.conf: /etc/wpa_supplicant/wpa_supplicant.conf
 
 # How to disable systemd-resolved:
+# yamllint disable-line rule:line-length
 #     https://askubuntu.com/questions/907246/how-to-disable-systemd-resolved-in-ubuntu
 # This does not takeS effect until system reboot.
 - name: disable systemd-resolved to enable resolvconf
   systemd:
-    name: systemd-resolved
-    state: stopped
-    enabled: no
+      name: systemd-resolved
+      state: stopped
+      enabled: false

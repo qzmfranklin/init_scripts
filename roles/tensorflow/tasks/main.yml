@@ -1,29 +1,29 @@
 ---
 
 - name: install prerequisites for building tensorflow from source
-  become: yes
+  become: true
   apt:
-    pkg: "{{ item }}"
-    state: latest
+      pkg: "{{ item }}"
+      state: latest
   with_items:
-    - python3-dev
-    - python3-numpy
-    - python3-pip
-    - python3-wheel
-    - libcupti-dev
+      - python3-dev
+      - python3-numpy
+      - python3-pip
+      - python3-wheel
+      - libcupti-dev
 
 - name: pip install packages
-  become: yes
+  become: true
   pip:
-    executable: pip3
-    name: "{{ item }}"
+      executable: pip3
+      name: "{{ item }}"
   with_items:
-    # For running ipython notebooks
-    - ipython
-    - jupyter
-    # For Udacity deep learning class
-    - imageio
-    - matplotlib
-    - numpy
-    - scipy
-    - sklearn
+      # For running ipython notebooks
+      - ipython
+      - jupyter
+      # For Udacity deep learning class
+      - imageio
+      - matplotlib
+      - numpy
+      - scipy
+      - sklearn

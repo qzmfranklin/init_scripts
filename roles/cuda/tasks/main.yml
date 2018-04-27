@@ -1,26 +1,30 @@
 ---
 
 # This role is a transcription of the installation guide below:
+# yamllint disable-line rule:line-length
 #     https://developer.download.nvidia.com/compute/cuda/9.1/Prod/docs/sidebar/CUDA_Installation_Guide_Linux.pdf
 
 # Disable the nouveau driver before installing the cuda toolkits:
 - name: persistently blacklist nouveau
-  become: yes
+  become: true
   copy:
-    src: blacklist-nouveau.conf
-    dest: /etc/modprobe.d/blacklist-nouveau.conf
+      src: blacklist-nouveau.conf
+      dest: /etc/modprobe.d/blacklist-nouveau.conf
 
 - name: regenerate the initramfs
-  become: yes
+  become: true
   shell: update-initramfs -u
+  tags:
+      skip_ansible_lint
 
 # Requires a reboot.
 
 - name: add proper paths to PATH and LD_LIBEARY_PATH
   copy:
-    src: cuda.sh
-    dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/cuda.sh"
+      src: cuda.sh
+      dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/env.d/cuda.sh"
 
+# yamllint disable rule:line-length
 
 # The run file for installing cuda is downloaded from:
 #     https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_387.26_linux
@@ -34,11 +38,13 @@
 # from proceeding.  It is highly recommended that the system be rebooted after
 # the installtion.
 #- name: force install cuda to custom locations
-  #become: yes
-  #shell: "./runfile.run --silent --override --driver --toolkit --toolkitpath=/opt/cuda/9.1 --samples --samplespath=/opt/cuda/9.1/samples"
+#  become: true
+#  shell: "./runfile.run --silent --override --driver --toolkit --toolkitpath=/opt/cuda/9.1 --samples --samplespath=/opt/cuda/9.1/samples"
 
 
 # The installtion of cudnn cannot be automated.  It requires logging into
 # nvidia's developer port..
 #- name: install cudnn
-  #become: yes
+#  become: true
+
+# yamllint enable rule:line-length

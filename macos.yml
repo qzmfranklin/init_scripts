@@ -1,9 +1,9 @@
 ---
 - hosts: all
   handlers:
-    - import_tasks: handlers.yml
+      - import_tasks: handlers.yml
   roles:
-    - bashrc
-    - packages
-    - git
-    - vim
+      - bashrc
+      - packages
+      - git
+      - vim
