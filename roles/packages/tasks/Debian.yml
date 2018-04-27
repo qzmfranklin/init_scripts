@@ -15,45 +15,7 @@
   apt:
       pkg: "{{ item }}"
       state: latest
-  with_items:
-      # NOTE: Keep these lists sorted!!!
-      - automake
-      - cmake
-      - curl
-      - git
-      - htop
-      - iftop
-      - iotop
-      - jq
-      - libtool
-      - openjdk-8-jdk
-      - python3
-      - python3-pip
-      - shellcheck
-      - ssh
-      - tree
-      - wget
-
-      # Other packages.
-      #- astyle
-      #- cscope
-      #- ctags
-      #- debconf-utils
-      #- genisoimage
-      #- libguestfs-tools
-      #- libvirt-bin
-      #- mdadm
-      #- mongodb
-      #- python-pip
-      #- python3-libvirt
-      #- python3-paramiko
-      #- python3-yaml
-      #- qemu-system-x86
-      #- smartmontools
-      #- squashfs-tools
-      #- syslinux-utils # for isohybrid
-      #- twine # for uploading python packages to pypi
-      #- virt-manager
+  with_items: "{{ debian.apt_pkgs }}"
 
 # The installation of certain packages depend on the location.
 - include_tasks: "extra_deb_pkgs/main.yml"
@@ -64,14 +26,7 @@
       name: "{{ item }}"
       state: latest
       executable: pip3
-  with_items:
-      - ansible-lint
-      - netaddr
-      - pip
-      - pre-commit
-      - pylint
-      - yamllint
-      - yapf
+  with_items: "{{ common.pip_pkgs }}"
 
 # This task will take effect after a reboot.
 - name: add current user to group docker
@@ -88,8 +43,4 @@
       global: true
       name: "{{ item }}"
       state: latest
-  with_items:
-      - eslint
-      - npm
-      - tslint
-      - typescript
+  with_items: "{{ common.npm_pkgs }}"

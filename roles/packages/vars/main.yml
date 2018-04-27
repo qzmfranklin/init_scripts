@@ -1,0 +1,101 @@
+---
+# yamllint enable rule:key-ordering
+
+# Please keep these lists sorted!
+common:
+    npm_pkgs:
+        - eslint
+        - npm
+        - tslint
+        - typescript
+    pip_pkgs:
+        - ansible-lint
+        - netaddr
+        - pip
+        - pre-commit
+        - pylint
+        - yamllint
+        - yapf
+darwin:
+    brew_pkgs:
+        - automake
+        - bazel
+        - cmake
+        - curl
+        - git
+        - git-lfs
+        - htop
+        - iftop
+        - jq
+        - libtool
+        - node@8
+        - pkg-config
+        - python3
+        - shellcheck
+        - tree
+        - wget
+    cask_pkgs:
+        - docker
+        - google-cloud-sdk
+        - visual-studio-code
+debian:
+    apt_pkgs:
+        - automake
+        - cmake
+        - curl
+        - git
+        - htop
+        - iftop
+        - iotop
+        - jq
+        - libtool
+        - openjdk-8-jdk
+        - python3
+        - python3-pip
+        - shellcheck
+        - ssh
+        - tree
+        - wget
+    third_party:
+        gpgs:
+            # yamllint disable rule:line-length
+            - https://bazel.build/bazel-release.pub.gpg
+            - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+            - https://download.docker.com/linux/ubuntu/gpg
+            - https://packagecloud.io/github/git-lfs/gpgkey
+            - https://packages.microsoft.com/keys/microsoft.asc
+            # yamllint enable rule:line-length
+        pkgs:
+            - bazel
+            - code
+            - docker-ce
+            - git-lfs
+            - nodejs
+        repos:
+            # yamllint disable rule:line-length
+            - "deb http://storage.googleapis.com/bazel-apt stable jdk1.8"
+            - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
+            - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+            - "deb https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
+            - "deb https://packages.microsoft.com/repos/vscode stable main"
+            # yamllint enable rule:line-length
+    unused_pkgs:
+        - astyle
+        - cscope
+        - ctags
+        - debconf-utils
+        - genisoimage
+        - libguestfs-tools
+        - libvirt-bin
+        - mdadm
+        - mongodb
+        - python-pip
+        - python3-libvirt
+        - python3-paramiko
+        - python3-yaml
+        - qemu-system-x86
+        - smartmontools
+        - squashfs-tools
+        - syslinux-utils # for isohybrid
+        - twine # for uploading python packages to pypi
+        - virt-manager

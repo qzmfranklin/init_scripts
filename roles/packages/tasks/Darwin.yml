@@ -9,33 +9,13 @@
   homebrew:
       name: "{{ item }}"
       state: upgraded
-  with_items:
-      # NOTE: Keep these lists sorted!!!
-      - automake
-      - bazel
-      - cmake
-      - curl
-      - git
-      - git-lfs
-      - htop
-      - iftop
-      - jq
-      - libtool
-      - node@8
-      - pkg-config
-      - python3
-      - shellcheck
-      - tree
-      - wget
+  with_items: "{{ darwin.brew_pkgs }}"
 
 - name: install homebrew cask pacakges
   homebrew_cask:
       name: "{{ item }}"
       state: upgraded
-  with_items:
-      - docker
-      - google-cloud-sdk
-      - visual-studio-code
+  with_items: "{{ darwin.cask_pkgs }}"
 
 - name: start docker daemon
   shell: open /Applications/Docker.app
@@ -45,14 +25,7 @@
       name: "{{ item }}"
       state: latest
       executable: pip3
-  with_items:
-      - ansible-lint
-      - netaddr
-      - pip
-      - pre-commit
-      - pylint
-      - yamllint
-      - yapf
+  with_items: "{{ common.pip_pkgs }}"
 
 - name: npm install -g packages
   npm:
@@ -60,8 +33,4 @@
       global: true
       name: "{{ item }}"
       state: latest
-  with_items:
-      - eslint
-      - npm
-      - tslint
-      - typescript
+  with_items: "{{ common.npm_pkgs }}"
