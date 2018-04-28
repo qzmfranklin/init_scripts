@@ -82,6 +82,7 @@ debian:
     unused_pkgs:
         - astyle
         - cscope
+        - cdecl
         - ctags
         - debconf-utils
         - genisoimage
