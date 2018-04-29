@@ -1,7 +1,7 @@
 ---
-
-# NOTE: Please keep these lists sorted!
 # yamllint enable rule:key-ordering
+
+# Please keep these lists sorted!
 common:
     npm_pkgs:
         - eslint
@@ -27,6 +27,7 @@ darwin:
         - htop
         - iftop
         - jq
+        - kubectl
         - libtool
         - node@8
         - pkg-config
@@ -63,6 +64,7 @@ debian:
             - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
             - https://download.docker.com/linux/ubuntu/gpg
             - https://packagecloud.io/github/git-lfs/gpgkey
+            - https://packages.cloud.google.com/apt/doc/apt-key.gpg
             - https://packages.microsoft.com/keys/microsoft.asc
             # yamllint enable rule:line-length
         pkgs:
@@ -70,9 +72,11 @@ debian:
             - code
             - docker-ce
             - git-lfs
+            - kubectl
             - nodejs
         repos:
             # yamllint disable rule:line-length
+            - "deb http://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main"
             - "deb http://storage.googleapis.com/bazel-apt stable jdk1.8"
             - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
             - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
@@ -82,7 +86,6 @@ debian:
     unused_pkgs:
         - astyle
         - cscope
-        - cdecl
         - ctags
         - debconf-utils
         - genisoimage
@@ -100,4 +103,3 @@ debian:
         - syslinux-utils # for isohybrid
         - twine # for uploading python packages to pypi
         - virt-manager
-# yamllint disable rule:key-ordering

@@ -3,15 +3,12 @@
 # TODO: Find a reliable way of installing these packages in China without having
 # to commit binary files into git.
 # These .deb files are generated using dpkg-repack from a valid installation.
-# - name: install packages from checked-in .deb files
-#   become: true
-#   apt:
-#       deb: "{{ role_path }}/files/{{ item }}"
-#   with_items:
-#       - bazel_0.12.0_amd64.deb
-#       - docker-ce_18.03.0~ce-0~ubuntu_amd64.deb
-#       - git-lfs_2.4.0_amd64.deb
-#       - nodejs_8.11.1-1nodesource1_amd64.deb
+- name: install packages from checked-in .deb files
+  become: true
+  apt:
+      deb: "{{ item }}"
+  with_fileglob:
+      - "{{ role_path }}/files/*.deb"
 
 - name: configure npm source
   become: true
@@ -19,7 +16,7 @@
 
 - name: mkdir -p ~/.pip
   file:
-      path: "{{ lookup('env', 'HOME') }}/.pip/pip.conf"
+      path: "{{ lookup('env', 'HOME') }}/.pip"
       state: directory
 
 - name: configure pypi source
