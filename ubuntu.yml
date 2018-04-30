@@ -4,9 +4,9 @@
       - import_tasks: handlers.yml
   roles:
       - bashrc
-      - packages
-      - git
       - vim
+      - git
+      - packages
 
       - server-wifi
       - cuda

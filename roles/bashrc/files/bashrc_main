@@ -12,6 +12,8 @@ if [ -d ~/.bashrc.d ]; then
     source_dir completion.d '*.bash'
     source_dir env.d '*.sh'
     source_dir function.d '*.sh'
+
+    # TODO (zhongming): Should convert to only using source_dir().
     [ -f ~/.bashrc.d/prompt.d/main.sh ] && . ~/.bashrc.d/prompt.d/main.sh
 fi
 
