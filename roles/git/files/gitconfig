@@ -1,13 +1,13 @@
 [user]
-	email = qzmfranklin@gmail.com
-	name = Zhongming Qu
+    email = qzmfranklin@gmail.com
+    name = Zhongming Qu
 [core]
-	excludesfile = ~/.gitignore
-	mergeoptions = --no-edit
+    excludesfile = ~/.gitignore
+    mergeoptions = --no-edit
 [push]
-	default = simple
+    default = simple
 [alias]
-	prunelocal = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
-	prunelocal-force = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
-	tree = log --graph --oneline --decorate
-	land = !git add :/ && git commit
+    prunelocal = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
+    prunelocal-force = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
+    tree = log --graph --oneline --decorate
+    land = !git add :/ && git commit

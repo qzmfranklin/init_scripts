@@ -2,28 +2,23 @@
 
 - include_tasks: "{{ ansible_os_family }}.yml"
 
-- name: install ~/.gitconfig
+- name: install ~/.git*
   copy:
-      src: gitconfig
-      dest: "{{ lookup('env', 'HOME') }}/.gitconfig"
+      src: "{{ role_path }}/files/{{ item.key }}"
+      dest: "{{ lookup('env', 'HOME') }}/{{ item.value }}"
+  with_dict:
+      gitconfig: .gitconfig
+      gitignore: .gitignore
 
 - name: install ~/.gitignore
   copy:
       src: gitignore
       dest: "{{ lookup('env', 'HOME') }}/.gitignore"
 
-- name: download git-completion.bash
-  uri:
-      # yamllint disable-line rule:line-length
-      url: "https://raw.githubusercontent.com/git/git/master/contrib/completion/{{ item.value }}"
-      dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/{{ item.key }}"
-  with_dict:
-      'completion.d/git-completion.bash': 'git-completion.bash'
-
 - name: git clone bash-git-prompt
   git:
       repo: https://github.com/magicmonty/bash-git-prompt.git
-      dest: "{{ lookup('env', 'HOME') }}/.bashrc.d/prompt.d/bash-git-prompt"
+      dest: "{{ lookup('env', 'HOME') }}/.bash-git-prompt"
       clone: true
       update: true
   tags:

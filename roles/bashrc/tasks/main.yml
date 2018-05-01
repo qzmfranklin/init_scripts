@@ -16,8 +16,7 @@
       src: .bashrc.d
       dest: "{{ lookup('env','HOME') }}/"
       recursive: true
-      # Cannot use the `delete` keyword because that would delete
-      # bash-git-completion.  Need to find a way to do this properly.
+      delete: true
 
 - name: install ~/.bashrc_main
   copy:

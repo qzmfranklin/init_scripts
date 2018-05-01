@@ -4,6 +4,6 @@
       - import_tasks: handlers.yml
   roles:
       - bashrc
-      - packages
       - git
       - vim
+      - packages

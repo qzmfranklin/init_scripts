@@ -3,5 +3,5 @@
 
 [ -f ~/.bashrc.d/prompt.d/generic.sh ] && . ~/.bashrc.d/prompt.d/generic.sh
 
-[ -f ~/.bashrc.d/prompt.d/bash-git-prompt/gitprompt.sh ] && . ~/.bashrc.d/prompt.d/bash-git-prompt/gitprompt.sh
+[ -f ~/.bash-git-prompt/gitprompt.sh ] && . ~/.bash-git-prompt/gitprompt.sh
 export GIT_PROMPT_ONLY_IN_REPO=1
