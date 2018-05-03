@@ -1,4 +1,6 @@
 ---
 
-- name: install git
-  homebrew: name=git state=present
+- name: install git and bash-completion
+  homebrew:
+      name: git
+      state: latest

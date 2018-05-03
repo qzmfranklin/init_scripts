@@ -1,6 +1,6 @@
 ---
 
-- name: install git with apt-get
+- name: install git and bash-completion
   become: true
   apt:
       pkg: "{{ item }}"
@@ -8,4 +8,4 @@
       update_cache: true
   with_items:
       - git
-      - git-svn
+      - bash-completion

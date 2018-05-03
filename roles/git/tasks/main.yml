@@ -2,13 +2,13 @@
 
 - include_tasks: "{{ ansible_os_family }}.yml"
 
-- name: install ~/.git*
+- name: install ~/.git{config,ignore}
   copy:
-      src: "{{ role_path }}/files/{{ item.key }}"
-      dest: "{{ lookup('env', 'HOME') }}/{{ item.value }}"
-  with_dict:
-      gitconfig: .gitconfig
-      gitignore: .gitignore
+      src: "{{ role_path }}/files/{{ item }}"
+      dest: "{{ lookup('env', 'HOME') }}/.{{ item }}"
+  with_items:
+      - gitconfig
+      - gitignore
 
 - name: install ~/.gitignore
   copy:
