@@ -14,6 +14,6 @@ elif [[ "$OS" == "Darwin" ]]; then
     #       https://github.com/bobthecow/git-flow-completion/wiki/Install-Bash-git-completion
     # The completion script being sourced should have been installed by:
     #       brew install git bash-completion
-    [ -f /opt/local/etc/profile.d/bash_completion.sh ] && \
-        . /opt/local/etc/profile.d/bash_completion.sh
+    [ -f $(brew --prefix)/etc/bash_completion ] && \
+        . $(brew --prefix)/etc/bash_completion
 fi
