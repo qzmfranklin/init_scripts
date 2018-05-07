@@ -1,5 +1,12 @@
 ---
 
+
+- name: verify Linux distribution
+  assert:
+      that:
+          - ansible_os_family == "Debian"
+      msg: The 'clang' role only runs on Ubuntu.
+
 - name: detect existing installation
   stat:
       path: /opt/clang/6.0.0/bin
@@ -13,7 +20,7 @@
 - name: download prebuilt clang tarball
   get_url:
       # yamllint disable-line rule:line-length
-      url: http://releases.llvm.org/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
+      url: http://releases.llvm.org/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz
       dest: /tmp/_ansible_clang.tar.xz
   when: fresh_install
 
@@ -39,12 +46,8 @@
   synchronize:
       # Don't remove the trailing slash in src.  Without the trailing slash, you
       # end up with
-      # /opt/clang/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04.
-      #
-      # CAVEAT (zhongming): The clang 6.0.0 download page only has prebuilt
-      # binaries for Ubuntu 14.04.  Though, it has been tested that the binaries
-      # work just fine on a Ubuntu 16.04 machine.
-      src: /tmp/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-14.04/
+      # /opt/clang/6.0.0/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-16.04.
+      src: /tmp/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-16.04/
       dest: /opt/clang/6.0.0
       delete: true
       recursive: true
