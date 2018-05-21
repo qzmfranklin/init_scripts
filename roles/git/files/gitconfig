@@ -7,10 +7,10 @@
 [push]
     default = simple
 [alias]
-    prunelocal = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
-    prunelocal-force = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
+    prune = !git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
     tree = log --graph --oneline --decorate
     land = !git add -u :/ && git commit
+    purge = !git submodule foreach --recursive git clean -dfx
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
