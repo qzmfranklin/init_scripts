@@ -60,6 +60,7 @@ debian:
     third_party:
         gpgs:
             # yamllint disable rule:line-length
+            - https://apt.llvm.org/llvm-snapshot.gpg.key
             - https://bazel.build/bazel-release.pub.gpg
             - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
             - https://download.docker.com/linux/ubuntu/gpg
@@ -69,6 +70,9 @@ debian:
             # yamllint enable rule:line-length
         pkgs:
             - bazel
+            - clang-6.0
+            - clang-format-6.0
+            - clang-tidy-6.0
             - code
             - docker-ce
             - git-lfs
@@ -76,6 +80,7 @@ debian:
             - nodejs
         repos:
             # yamllint disable rule:line-length
+            - "deb http://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }}-6.0 main"
             - "deb http://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main"
             - "deb http://storage.googleapis.com/bazel-apt stable jdk1.8"
             - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"

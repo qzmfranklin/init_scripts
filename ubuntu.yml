@@ -10,6 +10,6 @@
 
       - server-wifi
       - cuda
-      - clang
+      #- clang # replaced by part of the 'packages' role.
       #- tensorflow
       #- pxe

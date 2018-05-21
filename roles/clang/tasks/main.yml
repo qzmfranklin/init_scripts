@@ -1,6 +1,12 @@
 ---
 
 
+- name: correct java version selected
+  alternatives:
+      name: clang
+      path: /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
+
+
 - name: verify Linux distribution
   assert:
       that:
