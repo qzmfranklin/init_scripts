@@ -70,14 +70,18 @@ debian:
             # yamllint enable rule:line-length
         pkgs:
             - bazel
-            - clang-6.0
-            - clang-format-6.0
-            - clang-tidy-6.0
             - code
             - docker-ce
             - git-lfs
             - kubectl
             - nodejs
+            # The clang-* pacakges are tested to be installable and working.
+            # However, I still want to use the installation at /opt/clang for
+            # now.  Leave these as comments so that in the future it is easy to
+            # switch to installing from ppa.
+            #- clang-6.0
+            #- clang-format-6.0
+            #- clang-tidy-6.0
         repos:
             # yamllint disable rule:line-length
             - "deb http://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }}-6.0 main"

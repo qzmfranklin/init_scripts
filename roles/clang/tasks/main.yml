@@ -1,17 +1,10 @@
 ---
 
-
-- name: correct java version selected
-  alternatives:
-      name: clang
-      path: /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
-
-
 - name: verify Linux distribution
   assert:
       that:
           - ansible_os_family == "Debian"
-      msg: The 'clang' role only runs on Ubuntu.
+      msg: The 'clang' role must only run on Debian distributions.
 
 - name: detect existing installation
   stat:

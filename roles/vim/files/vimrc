@@ -97,16 +97,10 @@ set incsearch
 set cursorline
 "set cursorcolumn
 
+" Use the Smyck color scheme:
+"       https://github.com/hukl/Smyck-Color-Scheme
 syntax enable
-if has('unix')
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-        colorscheme smyck
-    elseif s:uname == "Linux\n"
-        colorscheme desert
-    endif
-endif
-"set background=light
+colorscheme smyck
 
 set nobackup
 set nowb
@@ -126,7 +120,7 @@ set tabstop=4
 "set tabstop=8
 
 " Mathematica script file support
-au! BufRead,BufNewFile *.m set ft=mma sw=2
+"au! BufRead,BufNewFile *.m set ft=mma sw=2
 
 " qbs syntax
 au! BufRead,BufNewFile *.qbs set ft=qml

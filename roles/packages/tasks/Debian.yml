@@ -2,9 +2,12 @@
 
 - name: uninstall i386 packages
   become: true
-  command: "apt-get purge \".*:i386\""
+  command: "apt purge \".*:i386\""
   args:
       warn: false
+  # If there is no i386 packages installed at all, this task will report error.
+  # But that is OK.
+  ignore_errors: true
 
 - name: completely remove i386
   become: true

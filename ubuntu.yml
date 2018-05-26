@@ -3,13 +3,16 @@
   handlers:
       - import_tasks: handlers.yml
   roles:
+      # The 'packages' role must go first in Ubuntu to ensure proper updates of
+      # the gpg keys for apt repositories.
+      - packages
+
       - bashrc
       - vim
       - git
-      - packages
 
       - server-wifi
       - cuda
-      #- clang # replaced by part of the 'packages' role.
+      - clang # TODO: Replace by part of the 'packages' role.
       #- tensorflow
       #- pxe
