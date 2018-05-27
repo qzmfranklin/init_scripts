@@ -20,6 +20,7 @@ darwin:
     brew_pkgs:
         - automake
         - bazel
+        - byacc  # only used for building swig from source
         - cmake
         - curl
         - git
@@ -42,6 +43,7 @@ darwin:
 debian:
     apt_pkgs:
         - automake
+        - byacc  # only used for building swig from source
         - cmake
         - curl
         - git
