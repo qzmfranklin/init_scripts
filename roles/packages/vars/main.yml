@@ -30,7 +30,7 @@ darwin:
         - jq
         - kubectl
         - libtool
-        - node@8
+        - node@10
         - pkg-config
         - python3
         - shellcheck
@@ -89,7 +89,7 @@ debian:
             - "deb http://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }}-6.0 main"
             - "deb http://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main"
             - "deb http://storage.googleapis.com/bazel-apt stable jdk1.8"
-            - "deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main"
+            - "deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main"
             - "deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
             - "deb https://packagecloud.io/github/git-lfs/ubuntu/ {{ ansible_distribution_release }} main"
             - "deb https://packages.microsoft.com/repos/vscode stable main"
