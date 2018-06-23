@@ -19,6 +19,7 @@ fi
 
 start-ssh-agent
 
-echo "Please verify the environment:"
-echo -e "\tPATH\t\t$PATH"
+echo "Please verify the environment variables:"
+echo -e "\tGOPATH\t\t$GOPATH"
 echo -e "\tLD_LIBRARY_PATH\t$LD_LIBRARY_PATH"
+echo -e "\tPATH\t\t$PATH"
