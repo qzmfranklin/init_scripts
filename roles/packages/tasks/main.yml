@@ -6,6 +6,10 @@
   become: true
   command: npm config set registry https://registry.npm.taobao.org
 
+- name: configure yarn source
+  become: true
+  command: yarn config set registry https://registry.npm.taobao.org
+
 - name: mkdir -p ~/.pip
   file:
       path: "{{ lookup('env', 'HOME') }}/.pip"
