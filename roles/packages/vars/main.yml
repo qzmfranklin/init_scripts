@@ -48,6 +48,7 @@ debian:
         - curl
         - git
         - htop
+        - icedtea-netx  # for running java web applications
         - iftop
         - iotop
         - jq
@@ -67,15 +68,15 @@ debian:
             - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
             - https://download.docker.com/linux/ubuntu/gpg
             - https://packagecloud.io/github/git-lfs/gpgkey
-            - https://packages.cloud.google.com/apt/doc/apt-key.gpg
+            #- https://packages.cloud.google.com/apt/doc/apt-key.gpg
             - https://packages.microsoft.com/keys/microsoft.asc
             # yamllint enable rule:line-length
         pkgs:
-            - bazel
-            - code
+            #- bazel
+            #- code
             - docker-ce
             - git-lfs
-            - kubectl
+            #- kubectl
             - nodejs
             # The clang-* pacakges are tested to be installable and working.
             # However, I still want to use the installation at /opt/clang for
@@ -104,10 +105,6 @@ debian:
         - libvirt-bin
         - mdadm
         - mongodb
-        - python-pip
-        - python3-libvirt
-        - python3-paramiko
-        - python3-yaml
         - qemu-system-x86
         - smartmontools
         - squashfs-tools

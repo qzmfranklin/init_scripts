@@ -20,8 +20,30 @@
       state: latest
   with_items: "{{ debian.apt_pkgs }}"
 
-# The installation of certain packages depend on the location.
-- include_tasks: "extra_deb_pkgs/main.yml"
+- name: add gpg key for third party apt-repos
+  become: true
+  apt_key:
+      file: "{{ item }}"
+      state: present
+  with_fileglob: "{{ role_path }}/files/gpg/*"
+
+- name: remove /etc/apt/sources.list.d/*
+  become: true
+  file:
+      path: /etc/apt/sources.list.d
+      state: absent
+
+- name: apt update
+  become: true
+  apt:
+      update_cache: true
+
+- name: install third party packages
+  become: true
+  apt:
+      pkg: "{{ item }}"
+      state: latest
+  with_items: "{{ debian.third_party.pkgs }}"
 
 - name: install python3 pacakges via pip3
   become: true

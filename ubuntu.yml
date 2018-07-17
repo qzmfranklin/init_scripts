@@ -11,8 +11,8 @@
       - vim
       - git
 
-      - server-wifi
-      - cuda
-      - clang # TODO: Replace by part of the 'packages' role.
+      #- server-wifi
+      #- cuda
+      #- clang # TODO: Replace by part of the 'packages' role.
       #- tensorflow
       #- pxe

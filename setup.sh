@@ -6,9 +6,11 @@ OS=$(uname)
 
 deb_install_ansible()
 {
-    sudo apt-add-repository --yes ppa:ansible/ansible
-    sudo apt update
-    sudo apt install -y ansible
+    sudo pip3 install -U ansible
+    # TODO (zhongming): Sometimes, installation from the ppa breaks.
+    # sudo apt-add-repository --yes ppa:ansible/ansible
+    # sudo apt update
+    # sudo apt install -y ansible
 }
 
 mac_install_ansible()
