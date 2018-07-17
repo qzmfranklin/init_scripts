@@ -73,7 +73,7 @@ debian:
             # yamllint enable rule:line-length
         pkgs:
             #- bazel
-            #- code
+            - code
             - docker-ce
             - git-lfs
             #- kubectl

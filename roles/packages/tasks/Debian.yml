@@ -27,11 +27,19 @@
       state: present
   with_fileglob: "{{ role_path }}/files/gpg/*"
 
-- name: remove /etc/apt/sources.list.d/*
+- name: install /etc/apt/sources.list
   become: true
-  file:
-      path: /etc/apt/sources.list.d
-      state: absent
+  template:
+      src: sources.list.j2
+      dest: /etc/apt/sources.list
+
+- name: synchronize /etc/apt/sources.list.d/*
+  become: true
+  synchronize:
+      src: "{{ role_path }}/files/sources.list.d/"
+      dest: /etc/apt/sources.list.d/
+      delete: true
+      recursive: true
 
 - name: apt update
   become: true

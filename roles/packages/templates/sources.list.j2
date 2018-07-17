@@ -12,9 +12,8 @@ deb [arch=amd64] http://mirrors.aliyun.com/ubuntu/ {{ ansible_distribution_relea
 deb [arch=amd64] http://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }}-6.0 main
 deb [arch=amd64] https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
 deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
-deb [arch=amd64] https://packagecloud.io/github/git-lfs/ubuntu {{ ansible_distribution_release }} main
 
 # Repositories that cannot be added due to network issues.
-#deb http://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main
-#deb http://storage.googleapis.com/bazel-apt stable jdk1.8
-#deb https://packages.microsoft.com/repos/vscode stable main
+#deb [arch=amd64] http://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main
+#deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8
+#deb [arch=amd64] https://packagecloud.io/github/git-lfs/ubuntu {{ ansible_distribution_release }} main
