@@ -23,10 +23,12 @@ vim:
         'vim-json': 'https://github.com/elzr/vim-json'
         'vim-misc': 'https://github.com/xolox/vim-misc'
         'vim-numbertoggle': 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
+        'vim-pug': 'https://github.com/digitaltoad/vim-pug.git'
         'vim-qml': 'https://github.com/peterhoeg/vim-qml'
         'vim-signature': 'https://github.com/kshenoy/vim-signature'
         'vim-swift': 'https://github.com/kballard/vim-swift'
         'vim-syntax-extra': 'https://github.com/justinmk/vim-syntax-extra'
         'vim-unimpaired': 'https://github.com/tpope/vim-unimpaired'
+        'vim-vue': 'https://github.com/posva/vim-vue.git'
         'wmgraphviz.vim': 'https://github.com/wannesm/wmgraphviz.vim'
         # yamllint enable rule:line-length
