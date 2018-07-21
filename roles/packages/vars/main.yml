@@ -5,9 +5,12 @@
 common:
     npm_pkgs:
         - eslint
+        - html-differ
         - npm
+        - pug-cli
         - tslint
         - typescript
+        - vue-cli
     pip_pkgs:
         - ansible-lint
         - netaddr
@@ -22,6 +25,7 @@ darwin:
         - bazel
         - byacc  # only used for building swig from source
         - cmake
+        - ctags
         - curl
         - git
         - git-lfs
@@ -45,6 +49,7 @@ debian:
         - automake
         - byacc  # only used for building swig from source
         - cmake
+        - ctags
         - curl
         - git
         - htop
